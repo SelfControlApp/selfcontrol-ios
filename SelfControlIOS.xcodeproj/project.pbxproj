@@ -7,17 +7,50 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CB93D1AB1E0F216700CE0571 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB93D1AA1E0F216700CE0571 /* AppDelegate.swift */; };
-		CB93D1AD1E0F216700CE0571 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB93D1AC1E0F216700CE0571 /* FirstViewController.swift */; };
-		CB93D1AF1E0F216700CE0571 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB93D1AE1E0F216700CE0571 /* SecondViewController.swift */; };
+		CB84E2EA1E109803005A0A6B /* SCFilterDataProvider.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = CB84E2E11E109803005A0A6B /* SCFilterDataProvider.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		CB84E2FB1E1098E6005A0A6B /* SCFilterControlProvider.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = CB84E2F21E1098E6005A0A6B /* SCFilterControlProvider.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		CB84E3081E109A59005A0A6B /* DataExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB84E3051E109A59005A0A6B /* DataExtension.swift */; };
+		CB84E30B1E109A90005A0A6B /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CB84E30A1E109A90005A0A6B /* Info.plist */; };
+		CB84E30F1E109AB5005A0A6B /* ControlExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB84E30C1E109AB5005A0A6B /* ControlExtension.swift */; };
+		CB84E3101E109AB5005A0A6B /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CB84E30E1E109AB5005A0A6B /* Info.plist */; };
+		CB84E3121E10AA83005A0A6B /* FilterUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB84E3111E10AA83005A0A6B /* FilterUtilities.swift */; };
+		CB84E3131E10AAB6005A0A6B /* FilterUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB84E3111E10AA83005A0A6B /* FilterUtilities.swift */; };
+		CB84E3141E10AAB7005A0A6B /* FilterUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB84E3111E10AA83005A0A6B /* FilterUtilities.swift */; };
+		CB93D1AD1E0F216700CE0571 /* BlockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB93D1AC1E0F216700CE0571 /* BlockViewController.swift */; };
+		CB93D1AF1E0F216700CE0571 /* BlockListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB93D1AE1E0F216700CE0571 /* BlockListViewController.swift */; };
 		CB93D1B21E0F216700CE0571 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB93D1B01E0F216700CE0571 /* Main.storyboard */; };
 		CB93D1B41E0F216700CE0571 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB93D1B31E0F216700CE0571 /* Assets.xcassets */; };
 		CB93D1B71E0F216700CE0571 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB93D1B51E0F216700CE0571 /* LaunchScreen.storyboard */; };
 		CB93D1C21E0F216800CE0571 /* SelfControlIOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB93D1C11E0F216800CE0571 /* SelfControlIOSTests.swift */; };
 		CB93D1CD1E0F216800CE0571 /* SelfControlIOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB93D1CC1E0F216800CE0571 /* SelfControlIOSUITests.swift */; };
+		CBF188CB1E6299F0008EFB00 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF188CA1E6299F0008EFB00 /* main.m */; };
+		CBF188CE1E629A3B008EFB00 /* SCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF188CD1E629A3B008EFB00 /* SCAppDelegate.m */; };
+		CBF188D11E629B5A008EFB00 /* SCStartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF188D01E629B5A008EFB00 /* SCStartViewController.m */; };
+		CBF188D41E629CAC008EFB00 /* SCBlockListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF188D31E629CAC008EFB00 /* SCBlockListViewController.m */; };
+		CBF188D71E629D03008EFB00 /* SCTimerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF188D61E629D03008EFB00 /* SCTimerViewController.m */; };
+		CBF188DA1E629D16008EFB00 /* SCMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF188D91E629D16008EFB00 /* SCMainViewController.m */; };
+		CBF188DD1E62AAB4008EFB00 /* SCBlockManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF188DC1E62AAB4008EFB00 /* SCBlockManager.m */; };
+		CBF188E01E62AC83008EFB00 /* SCBlockRule.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF188DF1E62AC83008EFB00 /* SCBlockRule.m */; };
+		CBF188E11E62AEAF008EFB00 /* SCBlockRule.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF188DF1E62AC83008EFB00 /* SCBlockRule.m */; };
+		CBF188E21E62AEB0008EFB00 /* SCBlockRule.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF188DF1E62AC83008EFB00 /* SCBlockRule.m */; };
+		CBF188E51E62BA23008EFB00 /* SCBlockRuleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF188E41E62BA23008EFB00 /* SCBlockRuleTableViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		CB84E2E81E109803005A0A6B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CB93D19F1E0F216700CE0571 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CB84E2E01E109803005A0A6B;
+			remoteInfo = SCFilterDataProvider;
+		};
+		CB84E2F91E1098E6005A0A6B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CB93D19F1E0F216700CE0571 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CB84E2F11E1098E6005A0A6B;
+			remoteInfo = SCFilterControlProvider;
+		};
 		CB93D1BE1E0F216700CE0571 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = CB93D19F1E0F216700CE0571 /* Project object */;
@@ -34,11 +67,34 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		CB84E2DC1E1097C0005A0A6B /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				CB84E2EA1E109803005A0A6B /* SCFilterDataProvider.appex in Embed App Extensions */,
+				CB84E2FB1E1098E6005A0A6B /* SCFilterControlProvider.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		CB84E2E11E109803005A0A6B /* SCFilterDataProvider.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SCFilterDataProvider.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		CB84E2F21E1098E6005A0A6B /* SCFilterControlProvider.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SCFilterControlProvider.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		CB84E3051E109A59005A0A6B /* DataExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataExtension.swift; sourceTree = "<group>"; };
+		CB84E3061E109A59005A0A6B /* DataFilterExtension.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = DataFilterExtension.entitlements; sourceTree = "<group>"; };
+		CB84E30A1E109A90005A0A6B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CB84E30C1E109AB5005A0A6B /* ControlExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControlExtension.swift; sourceTree = "<group>"; };
+		CB84E30D1E109AB5005A0A6B /* ControlFilterExtension.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = ControlFilterExtension.entitlements; sourceTree = "<group>"; };
+		CB84E30E1E109AB5005A0A6B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CB84E3111E10AA83005A0A6B /* FilterUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterUtilities.swift; sourceTree = "<group>"; };
 		CB93D1A71E0F216700CE0571 /* SelfControlIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SelfControlIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		CB93D1AA1E0F216700CE0571 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		CB93D1AC1E0F216700CE0571 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
-		CB93D1AE1E0F216700CE0571 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
+		CB93D1AC1E0F216700CE0571 /* BlockViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockViewController.swift; sourceTree = "<group>"; };
+		CB93D1AE1E0F216700CE0571 /* BlockListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockListViewController.swift; sourceTree = "<group>"; };
 		CB93D1B11E0F216700CE0571 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CB93D1B31E0F216700CE0571 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CB93D1B61E0F216700CE0571 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -49,9 +105,41 @@
 		CB93D1C81E0F216800CE0571 /* SelfControlIOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SelfControlIOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB93D1CC1E0F216800CE0571 /* SelfControlIOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfControlIOSUITests.swift; sourceTree = "<group>"; };
 		CB93D1CE1E0F216800CE0571 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CBF188C91E6299F0008EFB00 /* SelfControlIOS-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SelfControlIOS-Bridging-Header.h"; sourceTree = "<group>"; };
+		CBF188CA1E6299F0008EFB00 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		CBF188CC1E629A3B008EFB00 /* SCAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCAppDelegate.h; sourceTree = "<group>"; };
+		CBF188CD1E629A3B008EFB00 /* SCAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCAppDelegate.m; sourceTree = "<group>"; };
+		CBF188CF1E629B5A008EFB00 /* SCStartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCStartViewController.h; sourceTree = "<group>"; };
+		CBF188D01E629B5A008EFB00 /* SCStartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCStartViewController.m; sourceTree = "<group>"; };
+		CBF188D21E629CAC008EFB00 /* SCBlockListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCBlockListViewController.h; sourceTree = "<group>"; };
+		CBF188D31E629CAC008EFB00 /* SCBlockListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCBlockListViewController.m; sourceTree = "<group>"; };
+		CBF188D51E629D03008EFB00 /* SCTimerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCTimerViewController.h; sourceTree = "<group>"; };
+		CBF188D61E629D03008EFB00 /* SCTimerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCTimerViewController.m; sourceTree = "<group>"; };
+		CBF188D81E629D16008EFB00 /* SCMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCMainViewController.h; sourceTree = "<group>"; };
+		CBF188D91E629D16008EFB00 /* SCMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCMainViewController.m; sourceTree = "<group>"; };
+		CBF188DB1E62AAB4008EFB00 /* SCBlockManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCBlockManager.h; sourceTree = "<group>"; };
+		CBF188DC1E62AAB4008EFB00 /* SCBlockManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCBlockManager.m; sourceTree = "<group>"; };
+		CBF188DE1E62AC83008EFB00 /* SCBlockRule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCBlockRule.h; sourceTree = "<group>"; };
+		CBF188DF1E62AC83008EFB00 /* SCBlockRule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCBlockRule.m; sourceTree = "<group>"; };
+		CBF188E31E62BA23008EFB00 /* SCBlockRuleTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCBlockRuleTableViewCell.h; sourceTree = "<group>"; };
+		CBF188E41E62BA23008EFB00 /* SCBlockRuleTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCBlockRuleTableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		CB84E2DE1E109803005A0A6B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CB84E2EF1E1098E6005A0A6B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CB93D1A41E0F216700CE0571 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -76,12 +164,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CB84E2E21E109803005A0A6B /* SCFilterDataProvider */ = {
+			isa = PBXGroup;
+			children = (
+				CB84E3051E109A59005A0A6B /* DataExtension.swift */,
+				CB84E3061E109A59005A0A6B /* DataFilterExtension.entitlements */,
+				CB84E30A1E109A90005A0A6B /* Info.plist */,
+			);
+			path = SCFilterDataProvider;
+			sourceTree = "<group>";
+		};
+		CB84E2F31E1098E6005A0A6B /* SCFilterControlProvider */ = {
+			isa = PBXGroup;
+			children = (
+				CB84E30C1E109AB5005A0A6B /* ControlExtension.swift */,
+				CB84E30D1E109AB5005A0A6B /* ControlFilterExtension.entitlements */,
+				CB84E30E1E109AB5005A0A6B /* Info.plist */,
+			);
+			path = SCFilterControlProvider;
+			sourceTree = "<group>";
+		};
 		CB93D19E1E0F216700CE0571 = {
 			isa = PBXGroup;
 			children = (
 				CB93D1A91E0F216700CE0571 /* SelfControlIOS */,
 				CB93D1C01E0F216800CE0571 /* SelfControlIOSTests */,
 				CB93D1CB1E0F216800CE0571 /* SelfControlIOSUITests */,
+				CB84E2F31E1098E6005A0A6B /* SCFilterControlProvider */,
+				CB84E2E21E109803005A0A6B /* SCFilterDataProvider */,
 				CB93D1A81E0F216700CE0571 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -92,6 +202,8 @@
 				CB93D1A71E0F216700CE0571 /* SelfControlIOS.app */,
 				CB93D1BD1E0F216700CE0571 /* SelfControlIOSTests.xctest */,
 				CB93D1C81E0F216800CE0571 /* SelfControlIOSUITests.xctest */,
+				CB84E2E11E109803005A0A6B /* SCFilterDataProvider.appex */,
+				CB84E2F21E1098E6005A0A6B /* SCFilterControlProvider.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -99,13 +211,31 @@
 		CB93D1A91E0F216700CE0571 /* SelfControlIOS */ = {
 			isa = PBXGroup;
 			children = (
-				CB93D1AA1E0F216700CE0571 /* AppDelegate.swift */,
-				CB93D1AC1E0F216700CE0571 /* FirstViewController.swift */,
-				CB93D1AE1E0F216700CE0571 /* SecondViewController.swift */,
+				CBF188CC1E629A3B008EFB00 /* SCAppDelegate.h */,
+				CBF188CD1E629A3B008EFB00 /* SCAppDelegate.m */,
+				CBF188CF1E629B5A008EFB00 /* SCStartViewController.h */,
+				CBF188D01E629B5A008EFB00 /* SCStartViewController.m */,
+				CBF188D81E629D16008EFB00 /* SCMainViewController.h */,
+				CBF188D91E629D16008EFB00 /* SCMainViewController.m */,
+				CBF188E31E62BA23008EFB00 /* SCBlockRuleTableViewCell.h */,
+				CBF188E41E62BA23008EFB00 /* SCBlockRuleTableViewCell.m */,
+				CBF188D21E629CAC008EFB00 /* SCBlockListViewController.h */,
+				CBF188D31E629CAC008EFB00 /* SCBlockListViewController.m */,
+				CBF188D51E629D03008EFB00 /* SCTimerViewController.h */,
+				CBF188D61E629D03008EFB00 /* SCTimerViewController.m */,
+				CB93D1AC1E0F216700CE0571 /* BlockViewController.swift */,
+				CB93D1AE1E0F216700CE0571 /* BlockListViewController.swift */,
+				CBF188DE1E62AC83008EFB00 /* SCBlockRule.h */,
+				CBF188DF1E62AC83008EFB00 /* SCBlockRule.m */,
+				CBF188DB1E62AAB4008EFB00 /* SCBlockManager.h */,
+				CBF188DC1E62AAB4008EFB00 /* SCBlockManager.m */,
 				CB93D1B01E0F216700CE0571 /* Main.storyboard */,
 				CB93D1B31E0F216700CE0571 /* Assets.xcassets */,
 				CB93D1B51E0F216700CE0571 /* LaunchScreen.storyboard */,
 				CB93D1B81E0F216700CE0571 /* Info.plist */,
+				CBF188CA1E6299F0008EFB00 /* main.m */,
+				CB84E3111E10AA83005A0A6B /* FilterUtilities.swift */,
+				CBF188C91E6299F0008EFB00 /* SelfControlIOS-Bridging-Header.h */,
 			);
 			path = SelfControlIOS;
 			sourceTree = "<group>";
@@ -131,6 +261,40 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		CB84E2E01E109803005A0A6B /* SCFilterDataProvider */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CB84E2EB1E109803005A0A6B /* Build configuration list for PBXNativeTarget "SCFilterDataProvider" */;
+			buildPhases = (
+				CB84E2DD1E109803005A0A6B /* Sources */,
+				CB84E2DE1E109803005A0A6B /* Frameworks */,
+				CB84E2DF1E109803005A0A6B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SCFilterDataProvider;
+			productName = SCFilterDataProvider;
+			productReference = CB84E2E11E109803005A0A6B /* SCFilterDataProvider.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		CB84E2F11E1098E6005A0A6B /* SCFilterControlProvider */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CB84E2FC1E1098E6005A0A6B /* Build configuration list for PBXNativeTarget "SCFilterControlProvider" */;
+			buildPhases = (
+				CB84E2EE1E1098E6005A0A6B /* Sources */,
+				CB84E2EF1E1098E6005A0A6B /* Frameworks */,
+				CB84E2F01E1098E6005A0A6B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SCFilterControlProvider;
+			productName = SCFilterControlProvider;
+			productReference = CB84E2F21E1098E6005A0A6B /* SCFilterControlProvider.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		CB93D1A61E0F216700CE0571 /* SelfControlIOS */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = CB93D1D11E0F216800CE0571 /* Build configuration list for PBXNativeTarget "SelfControlIOS" */;
@@ -138,10 +302,13 @@
 				CB93D1A31E0F216700CE0571 /* Sources */,
 				CB93D1A41E0F216700CE0571 /* Frameworks */,
 				CB93D1A51E0F216700CE0571 /* Resources */,
+				CB84E2DC1E1097C0005A0A6B /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				CB84E2E91E109803005A0A6B /* PBXTargetDependency */,
+				CB84E2FA1E1098E6005A0A6B /* PBXTargetDependency */,
 			);
 			name = SelfControlIOS;
 			productName = SelfControlIOS;
@@ -194,18 +361,32 @@
 				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = SelfControl;
 				TargetAttributes = {
+					CB84E2E01E109803005A0A6B = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = L6W5L88KN7;
+						LastSwiftMigration = 0820;
+						ProvisioningStyle = Manual;
+					};
+					CB84E2F11E1098E6005A0A6B = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = L6W5L88KN7;
+						LastSwiftMigration = 0820;
+						ProvisioningStyle = Manual;
+					};
 					CB93D1A61E0F216700CE0571 = {
 						CreatedOnToolsVersion = 8.2.1;
-						ProvisioningStyle = Automatic;
+						DevelopmentTeam = L6W5L88KN7;
+						LastSwiftMigration = 0820;
+						ProvisioningStyle = Manual;
 					};
 					CB93D1BC1E0F216700CE0571 = {
 						CreatedOnToolsVersion = 8.2.1;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 						TestTargetID = CB93D1A61E0F216700CE0571;
 					};
 					CB93D1C71E0F216800CE0571 = {
 						CreatedOnToolsVersion = 8.2.1;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 						TestTargetID = CB93D1A61E0F216700CE0571;
 					};
 				};
@@ -226,11 +407,29 @@
 				CB93D1A61E0F216700CE0571 /* SelfControlIOS */,
 				CB93D1BC1E0F216700CE0571 /* SelfControlIOSTests */,
 				CB93D1C71E0F216800CE0571 /* SelfControlIOSUITests */,
+				CB84E2E01E109803005A0A6B /* SCFilterDataProvider */,
+				CB84E2F11E1098E6005A0A6B /* SCFilterControlProvider */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		CB84E2DF1E109803005A0A6B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CB84E30B1E109A90005A0A6B /* Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CB84E2F01E1098E6005A0A6B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CB84E3101E109AB5005A0A6B /* Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CB93D1A51E0F216700CE0571 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -258,13 +457,42 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		CB84E2DD1E109803005A0A6B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CB84E3131E10AAB6005A0A6B /* FilterUtilities.swift in Sources */,
+				CBF188E11E62AEAF008EFB00 /* SCBlockRule.m in Sources */,
+				CB84E3081E109A59005A0A6B /* DataExtension.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CB84E2EE1E1098E6005A0A6B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CB84E3141E10AAB7005A0A6B /* FilterUtilities.swift in Sources */,
+				CBF188E21E62AEB0008EFB00 /* SCBlockRule.m in Sources */,
+				CB84E30F1E109AB5005A0A6B /* ControlExtension.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CB93D1A31E0F216700CE0571 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CB93D1AF1E0F216700CE0571 /* SecondViewController.swift in Sources */,
-				CB93D1AB1E0F216700CE0571 /* AppDelegate.swift in Sources */,
-				CB93D1AD1E0F216700CE0571 /* FirstViewController.swift in Sources */,
+				CB93D1AF1E0F216700CE0571 /* BlockListViewController.swift in Sources */,
+				CBF188E51E62BA23008EFB00 /* SCBlockRuleTableViewCell.m in Sources */,
+				CBF188E01E62AC83008EFB00 /* SCBlockRule.m in Sources */,
+				CB84E3121E10AA83005A0A6B /* FilterUtilities.swift in Sources */,
+				CBF188D71E629D03008EFB00 /* SCTimerViewController.m in Sources */,
+				CBF188D41E629CAC008EFB00 /* SCBlockListViewController.m in Sources */,
+				CB93D1AD1E0F216700CE0571 /* BlockViewController.swift in Sources */,
+				CBF188CB1E6299F0008EFB00 /* main.m in Sources */,
+				CBF188DA1E629D16008EFB00 /* SCMainViewController.m in Sources */,
+				CBF188CE1E629A3B008EFB00 /* SCAppDelegate.m in Sources */,
+				CBF188D11E629B5A008EFB00 /* SCStartViewController.m in Sources */,
+				CBF188DD1E62AAB4008EFB00 /* SCBlockManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -287,6 +515,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		CB84E2E91E109803005A0A6B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CB84E2E01E109803005A0A6B /* SCFilterDataProvider */;
+			targetProxy = CB84E2E81E109803005A0A6B /* PBXContainerItemProxy */;
+		};
+		CB84E2FA1E1098E6005A0A6B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CB84E2F11E1098E6005A0A6B /* SCFilterControlProvider */;
+			targetProxy = CB84E2F91E1098E6005A0A6B /* PBXContainerItemProxy */;
+		};
 		CB93D1BF1E0F216700CE0571 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = CB93D1A61E0F216700CE0571 /* SelfControlIOS */;
@@ -319,6 +557,84 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		CB84E2EC1E109803005A0A6B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_MODULES = YES;
+				DEVELOPMENT_TEAM = L6W5L88KN7;
+				INFOPLIST_FILE = SCFilterDataProvider/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.selfcontrolapp.SelfControlIOS.SCFilterDataProvider;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "0d7ff597-ff57-4393-a5f2-bf1805b593c0";
+				PROVISIONING_PROFILE_SPECIFIER = "SC iOS Dev (Filter Data Provider)";
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "SelfControlIOS/SelfControlIOS-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		CB84E2ED1E109803005A0A6B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_MODULES = YES;
+				DEVELOPMENT_TEAM = L6W5L88KN7;
+				INFOPLIST_FILE = SCFilterDataProvider/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.selfcontrolapp.SelfControlIOS.SCFilterDataProvider;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "0d7ff597-ff57-4393-a5f2-bf1805b593c0";
+				PROVISIONING_PROFILE_SPECIFIER = "SC iOS Dev (Filter Data Provider)";
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "SelfControlIOS/SelfControlIOS-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		CB84E2FD1E1098E6005A0A6B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_MODULES = YES;
+				DEVELOPMENT_TEAM = L6W5L88KN7;
+				INFOPLIST_FILE = SCFilterControlProvider/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.selfcontrolapp.SelfControlIOS.SCFilterControlProvider;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "8871c112-fd05-4c21-9661-0f6c1d33019b";
+				PROVISIONING_PROFILE_SPECIFIER = "SC iOS Dev (Filter Control Provider)";
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "SelfControlIOS/SelfControlIOS-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		CB84E2FE1E1098E6005A0A6B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_MODULES = YES;
+				DEVELOPMENT_TEAM = L6W5L88KN7;
+				INFOPLIST_FILE = SCFilterControlProvider/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.selfcontrolapp.SelfControlIOS.SCFilterControlProvider;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "8871c112-fd05-4c21-9661-0f6c1d33019b";
+				PROVISIONING_PROFILE_SPECIFIER = "SC iOS Dev (Filter Control Provider)";
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "SelfControlIOS/SelfControlIOS-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
 		CB93D1CF1E0F216800CE0571 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -340,9 +656,11 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = L6W5L88KN7;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -359,9 +677,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE_SPECIFIER = "2995c6cf-4d42-4367-a9aa-265f5a8447c9";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -390,9 +709,11 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = L6W5L88KN7;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -403,8 +724,9 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE_SPECIFIER = "2995c6cf-4d42-4367-a9aa-265f5a8447c9";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -415,11 +737,18 @@
 		CB93D1D21E0F216800CE0571 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				DEVELOPMENT_TEAM = L6W5L88KN7;
 				INFOPLIST_FILE = SelfControlIOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.selfcontrolapp.SelfControlIOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "66df3e32-b973-4f5b-9561-c3cb4d0b3d7a";
+				PROVISIONING_PROFILE_SPECIFIER = "SC iOS Dev";
+				SWIFT_OBJC_BRIDGING_HEADER = "SelfControlIOS/SelfControlIOS-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -427,11 +756,17 @@
 		CB93D1D31E0F216800CE0571 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				DEVELOPMENT_TEAM = L6W5L88KN7;
 				INFOPLIST_FILE = SelfControlIOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.selfcontrolapp.SelfControlIOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "66df3e32-b973-4f5b-9561-c3cb4d0b3d7a";
+				PROVISIONING_PROFILE_SPECIFIER = "SC iOS Dev";
+				SWIFT_OBJC_BRIDGING_HEADER = "SelfControlIOS/SelfControlIOS-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
@@ -441,10 +776,12 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = SelfControlIOSTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.selfcontrolapp.SelfControlIOSTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SelfControlIOS.app/SelfControlIOS";
 			};
@@ -455,10 +792,12 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = SelfControlIOSTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.selfcontrolapp.SelfControlIOSTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SelfControlIOS.app/SelfControlIOS";
 			};
@@ -468,10 +807,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = SelfControlIOSUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.selfcontrolapp.SelfControlIOSUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = SelfControlIOS;
 			};
@@ -481,10 +822,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = SelfControlIOSUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.selfcontrolapp.SelfControlIOSUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = SelfControlIOS;
 			};
@@ -493,6 +836,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		CB84E2EB1E109803005A0A6B /* Build configuration list for PBXNativeTarget "SCFilterDataProvider" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CB84E2EC1E109803005A0A6B /* Debug */,
+				CB84E2ED1E109803005A0A6B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CB84E2FC1E1098E6005A0A6B /* Build configuration list for PBXNativeTarget "SCFilterControlProvider" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CB84E2FD1E1098E6005A0A6B /* Debug */,
+				CB84E2FE1E1098E6005A0A6B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		CB93D1A21E0F216700CE0571 /* Build configuration list for PBXProject "SelfControlIOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -509,6 +870,7 @@
 				CB93D1D31E0F216800CE0571 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CB93D1D41E0F216800CE0571 /* Build configuration list for PBXNativeTarget "SelfControlIOSTests" */ = {
 			isa = XCConfigurationList;
@@ -517,6 +879,7 @@
 				CB93D1D61E0F216800CE0571 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CB93D1D71E0F216800CE0571 /* Build configuration list for PBXNativeTarget "SelfControlIOSUITests" */ = {
 			isa = XCConfigurationList;
@@ -525,6 +888,7 @@
 				CB93D1D91E0F216800CE0571 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

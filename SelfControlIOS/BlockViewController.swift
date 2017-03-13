@@ -1,5 +1,5 @@
 //
-//  FirstViewController.swift
+//  BlockViewController
 //  SelfControlIOS
 //
 //  Created by Charles Stigler on 12/24/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FirstViewController: UIViewController {
+class BlockViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

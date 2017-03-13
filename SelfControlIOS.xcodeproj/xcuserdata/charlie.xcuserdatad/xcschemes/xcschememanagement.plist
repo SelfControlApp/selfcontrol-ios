@@ -4,6 +4,21 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>SCFilterControlManager.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
+		<key>SCFilterControlProvider.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>3</integer>
+		</dict>
+		<key>SCFilterDataProvider.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
 		<key>SelfControlIOS.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -12,6 +27,21 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>CB84E2CE1E1097C0005A0A6B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CB84E2E01E109803005A0A6B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CB84E2F11E1098E6005A0A6B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>CB93D1A61E0F216700CE0571</key>
 		<dict>
 			<key>primary</key>
