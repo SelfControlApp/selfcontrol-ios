@@ -14,7 +14,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (SCBlockManager *)sharedManager;
 
+- (void)startBlock;
+
 @property (nonatomic, copy) NSArray<SCBlockRule *> *blockRules;
+@property (nonatomic, readonly) NSDate* blockEndDate;
 
 @end
 

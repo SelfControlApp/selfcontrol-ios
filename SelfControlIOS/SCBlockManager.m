@@ -12,6 +12,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@interface SCBlockManager ()
+
+@property (nonatomic, readwrite) NSDate* blockEndDate; // readwrite for us only
+
+@end
+
 @implementation SCBlockManager
 
 + (SCBlockManager *)sharedManager {
@@ -32,8 +38,6 @@ NS_ASSUME_NONNULL_BEGIN
     // reloadRules will make sure self.blockRules is initialized
     [self reloadRules];
     
-    [self startBlock];
-    
     return self;
 }
 
@@ -49,16 +53,23 @@ NS_ASSUME_NONNULL_BEGIN
     }];
 }
 
-- (void)saveToPreferences:(void (^)())completionHandler {
+- (void)saveToPreferences:(void (^)(NSError* _Nullable err))completionHandler {
     [[NEFilterManager sharedManager] saveToPreferencesWithCompletionHandler:^(NSError * __nullable error) {
         if (error) {
+            if ([error.domain isEqualToString: @"NEConfigurationErrorDomain"] && error.code == 9) {
+                // configuration unchanged, not an issue (filter is already set)
+                NSLog(@"Filter configuration unchanged, continuing...");
+                completionHandler(nil);
+                return;
+            }
             NSLog(@"Failed to save the filter configuration: %@", error);
+            completionHandler(error);
             return;
         }
         
         [[FilterUtilities defaults] setValue:[[[NEFilterManager sharedManager] providerConfiguration] serverAddress] forKey:@"serverAddress"];
         
-        completionHandler();
+        completionHandler(nil);
     }];
 }
 
@@ -76,13 +87,22 @@ NS_ASSUME_NONNULL_BEGIN
         
         [[NEFilterManager sharedManager] setEnabled:YES];
         
-        [self setDefaultRules];
         [self reloadRules];
         
-        [self saveToPreferences:^{
+        // set ending date
+        NSInteger blockLengthMinutes = [[NSUserDefaults standardUserDefaults] integerForKey: @"blockLengthMinutes"];
+        self.blockEndDate = [NSDate dateWithTimeInterval: (blockLengthMinutes * 60) sinceDate: [NSDate date]];
+        
+        [self saveToPreferences:^(NSError* err){
             NSLog(@"DONE!!!");
         }];
     }];
+}
+
+- (void)setBlockEndDate:(NSDate * _Nonnull)blockEndDate {
+    _blockEndDate = [blockEndDate copy];
+    [[FilterUtilities defaults] setObject: blockEndDate forKey: @"blockEndDate"];
+    NSLog(@"block end date: %@", blockEndDate);
 }
 
 - (void)setBlockRules:(NSArray<SCBlockRule *> *)blockRules {
@@ -108,10 +128,6 @@ NS_ASSUME_NONNULL_BEGIN
         [blockRules addObject:[[SCBlockRule alloc] initWithHostname:key]];
     }];
     _blockRules = [blockRules copy];
-}
-
-- (void)setDefaultRules {
-    
 }
 
 @end
