@@ -1,0 +1,6 @@
+framework module Pods_SCFilterDataProvider {
+  umbrella header "Pods-SCFilterDataProvider-umbrella.h"
+
+  export *
+  module * { export * }
+}

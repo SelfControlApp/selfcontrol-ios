@@ -1,0 +1,6 @@
+framework module Pods_SelfControlIOS {
+  umbrella header "Pods-SelfControlIOS-umbrella.h"
+
+  export *
+  module * { export * }
+}
