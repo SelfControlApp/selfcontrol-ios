@@ -33,7 +33,9 @@ NS_ASSUME_NONNULL_BEGIN
     self = [super init];
     if (!self)
         return nil;
-    NSLog(@"INIT!!!");
+
+    // initialize blockEndDate from defaults
+    _blockEndDate = [[FilterUtilities defaults] objectForKey:@"blockEndDate"];
     
     // reloadRules will make sure self.blockRules is initialized
     [self reloadRules];
@@ -73,12 +75,12 @@ NS_ASSUME_NONNULL_BEGIN
     }];
 }
 
-- (void)startBlock {
+- (void)startBlock:(completion)done {
     [self loadFromPreferences:^{
         if (![[NEFilterManager sharedManager] providerConfiguration]) {
             NEFilterProviderConfiguration *newConfiguration = [NEFilterProviderConfiguration new];
             newConfiguration.username = @"CharlieStigler";
-            newConfiguration.organization = @"SelfControl, Inc.";
+            newConfiguration.organization = @"SelfControl";
             newConfiguration.filterBrowsers = YES;
             newConfiguration.filterSockets = YES;
 //            newConfiguration.serverAddress = @"my.great.filter.server";
@@ -94,7 +96,7 @@ NS_ASSUME_NONNULL_BEGIN
         self.blockEndDate = [NSDate dateWithTimeInterval: (blockLengthMinutes * 60) sinceDate: [NSDate date]];
         
         [self saveToPreferences:^(NSError* err){
-            NSLog(@"DONE!!!");
+            done(err);
         }];
     }];
 }
@@ -102,7 +104,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setBlockEndDate:(NSDate * _Nonnull)blockEndDate {
     _blockEndDate = [blockEndDate copy];
     [[FilterUtilities defaults] setObject: blockEndDate forKey: @"blockEndDate"];
-    NSLog(@"block end date: %@", blockEndDate);
 }
 
 - (void)setBlockRules:(NSArray<SCBlockRule *> *)blockRules {
@@ -110,9 +111,13 @@ NS_ASSUME_NONNULL_BEGIN
     [blockRules enumerateObjectsUsingBlock:^(SCBlockRule *blockRule, NSUInteger index, BOOL *stop) {
         [rulesDictionary setObject:[blockRule filterRuleDictionary] forKey:blockRule.hostname];
     }];
-    
     [[FilterUtilities defaults] setObject:rulesDictionary forKey:@"rules"];
+
     _blockRules = [blockRules copy];
+}
+
+- (BOOL)blockIsRunning {
+    return (_blockEndDate.timeIntervalSinceNow > 0);
 }
 
 - (void)reloadRules {

@@ -8,16 +8,19 @@
 
 #import "SCBlockRule.h"
 
+typedef void(^completion)(NSError*);
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface SCBlockManager : NSObject
 
 + (SCBlockManager *)sharedManager;
 
-- (void)startBlock;
+- (void)startBlock:(completion)done;
 
 @property (nonatomic, copy) NSArray<SCBlockRule *> *blockRules;
 @property (nonatomic, readonly) NSDate* blockEndDate;
+@property (nonatomic, readonly) BOOL blockIsRunning;
 
 @end
 

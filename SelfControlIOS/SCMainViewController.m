@@ -9,6 +9,7 @@
 #import "SCMainViewController.h"
 #import "SCStartViewController.h"
 #import "SCTimerViewController.h"
+#import "SCBlockManager.h"
 
 @interface SCMainViewController ()
 
@@ -34,7 +35,11 @@
         
 - (void)reloadViewControllers {
     // if block running, root view controller = timer, otherwise = start
-    self.viewControllers = @[self.startViewController];
+    if ([SCBlockManager sharedManager].blockIsRunning) {
+        self.viewControllers = @[self.timerViewController];
+    } else {
+        self.viewControllers = @[self.startViewController];
+    }
     
     self.navigationBarHidden = YES;
 }

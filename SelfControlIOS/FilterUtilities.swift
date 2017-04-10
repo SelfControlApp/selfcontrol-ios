@@ -22,7 +22,19 @@ open class FilterUtilities: NSObject {
 	/// Get rule parameters for a flow from the SimpleTunnel user defaults.
 	open class func getRule(_ flow: NEFilterFlow) -> (SCBlockRuleFilterAction, String, [String: AnyObject]) {
 		let hostname = FilterUtilities.getFlowHostname(flow)
-
+        NSLog("Finding rule for hostname %@", hostname);
+    
+        let blockEndDate = defaults?.object(forKey: "blockEndDate") as? Date
+        if (blockEndDate == nil || blockEndDate! < Date()) {
+            // block is over or not started, so always return allow!
+            // and clear any cruft left in the blockEndDate field
+            if (blockEndDate != nil) {
+                NSLog("*** Block is over! Removing object")
+                defaults?.removeObject(forKey: "blockEndDate")
+            } else { NSLog("Allow all, no block.") }
+            return (.allow, hostname, [:])
+        }
+        
 		guard !hostname.isEmpty else { return (.allow, hostname, [:]) }
 
 		guard let hostNameRule = (defaults?.object(forKey: "rules") as AnyObject).object(forKey: hostname) as? [String: AnyObject] else {

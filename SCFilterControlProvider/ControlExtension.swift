@@ -14,14 +14,6 @@ class ControlExtension : NEFilterControlProvider {
 
 	// MARK: Properties
 
-	/// The default rules, in the event that 
-	let defaultRules: [String: [String: AnyObject]] = [
-		"www.apple.com" : [
-			"kRule" : SCBlockRuleFilterAction.block.rawValue as AnyObject,
-			"kRemediationKey" : "Remediate1" as AnyObject
-		]
-	]
-
 	/// An integer to use as the context for key-value observing.
 	var observerContext = 0
 
@@ -31,7 +23,6 @@ class ControlExtension : NEFilterControlProvider {
 	func updateFromConfiguration() {
 		guard let serverAddress = filterConfiguration.serverAddress else { return }
 
-		FilterUtilities.defaults?.setValue(defaultRules, forKey: "rules")
 //		FilterUtilities.fetchRulesFromServer(filterConfiguration.serverAddress)
 
 		let remediationURL = "https://\(serverAddress)/remediate/?url=\(NEFilterProviderRemediationURLFlowURLHostname)&organization=\(NEFilterProviderRemediationURLOrganization)&username=\(NEFilterProviderRemediationURLUsername)"
@@ -62,7 +53,6 @@ class ControlExtension : NEFilterControlProvider {
 		super.init()
 		updateFromConfiguration()
 
-		FilterUtilities.defaults?.setValue(defaultRules, forKey: "rules")
 //		FilterUtilities.fetchRulesFromServer(self.filterConfiguration.serverAddress)
 
 		self.addObserver(self, forKeyPath: "filterConfiguration", options: [.initial, .new], context: &observerContext)

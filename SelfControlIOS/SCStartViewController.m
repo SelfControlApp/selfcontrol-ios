@@ -7,6 +7,7 @@
 //
 
 #import "SCBlockManager.h"
+#import "SCMainViewController.h"
 #import "SCStartViewController.h"
 #import "SCBlockListViewController.h"
 #import <Masonry/Masonry.h>
@@ -53,7 +54,9 @@
         make.right.equalTo(self.view.mas_right).with.offset(-40);
     }];
     self.blockTimeSlider = blockTimeSlider;
-    
+    // pull initial value from defautls
+    self.blockTimeSlider.value = [[NSUserDefaults standardUserDefaults] integerForKey:@"blockLengthMinutes"];
+
     // Todo: actually convert this label into proper units
     UILabel* humanReadableBlockTimeLabel = [UILabel new];
     [self.view addSubview: humanReadableBlockTimeLabel];
@@ -91,7 +94,6 @@
     startBlockButton.backgroundColor = [UIColor blueColor];
     [startBlockButton addTarget: self action: @selector(startBlock) forControlEvents: UIControlEventTouchUpInside];
     [self.view addSubview: startBlockButton];
-    
     [startBlockButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.view.mas_bottom);
         make.left.equalTo(self.view.mas_left);
@@ -116,6 +118,9 @@
     [super viewWillAppear: animated];
     [self.navigationController setNavigationBarHidden: YES animated: YES];
     [self updateSitesBlockedLabel];
+    
+    // make sure that we're supposed to be showing this screen and not the timer view controller
+    [(SCMainViewController*)self.navigationController reloadViewControllers];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -129,7 +134,22 @@
 }
 
 - (void)startBlock {
-    [[SCBlockManager sharedManager] startBlock];
+    [[SCBlockManager sharedManager] startBlock:^(NSError * err) {
+        if (err != nil) {
+            // show error message
+            // TODO: abstract into a factory cause this is way too long
+            UIAlertController* alert = [UIAlertController alertControllerWithTitle: @"Couldn't Start Block"
+                                                                           message: [err localizedDescription]
+                                                                    preferredStyle: UIAlertControllerStyleAlert];
+            UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                                  handler:^(UIAlertAction * action) {}];
+            [alert addAction: defaultAction];
+            [self presentViewController: alert animated: YES completion: nil];
+        }
+        
+        // reload the root view controller to show the timer
+        [(SCMainViewController*)self.navigationController reloadViewControllers];
+    }];
 }
 
 /*

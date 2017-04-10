@@ -10,4 +10,6 @@
 
 @interface SCMainViewController : UINavigationController
 
+- (void)reloadViewControllers;
+
 @end
