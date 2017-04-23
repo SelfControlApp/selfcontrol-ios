@@ -19,6 +19,102 @@ open class FilterUtilities: NSObject {
 
 	// MARK: Initializers
 
+    open class func getHostnameRuleObj(_ hostname: String) -> [String: AnyObject]? {
+        let rules = (defaults?.object(forKey: "rules") as AnyObject)
+        var adjustedHostname = hostname;
+
+        // TODO: special handling for special sites like Facebook, Google, etc that are hard to block for end-users
+        
+        // These are all subdomains that are usually just the main site, but on a subdomain for some practical reason
+        // We'll assume that if the user blocked the root domain, they meant to block these, and if
+        // they block these they meant to block them all
+        let AUTOINCLUDED_SUBDOMAINS = ["www",
+                                       "ww1",
+                                       "ww2",
+                                       "www1",
+                                       "www2",
+                                       "secure",
+                                       "web",
+                                       "app",
+                                       "m"]
+        
+        // first, strip any of the AUTOINCLUDED_SUBDOMAINS, to get to the root domain (or at least one level down)
+        for subdomain in AUTOINCLUDED_SUBDOMAINS {
+            if (adjustedHostname.hasPrefix("\(subdomain).")) {
+                // remove the prefix
+                let newStartIndex = adjustedHostname.index(adjustedHostname.startIndex, offsetBy: subdomain.characters.count + 1)
+                adjustedHostname = adjustedHostname.substring(from: newStartIndex)
+                
+                // break so we don't keep going down to sub-subdomains (e.g. www.secure.app.web.example.com)
+                break
+            }
+        }
+        
+        // now see if we have a rule for the stripped domain...
+        var ruleObj = rules.object(forKey: adjustedHostname) as? [String: AnyObject]
+        if (ruleObj != nil) {
+            return ruleObj
+        }
+        
+        // OR if not, for the stripped domain prefixed by any autoinclude subdomain
+        for subdomain in AUTOINCLUDED_SUBDOMAINS {
+            ruleObj = rules.object(forKey: "\(subdomain).\(adjustedHostname)") as? [String: AnyObject]
+            
+            // if we found a rule, we're done!
+            if (ruleObj != nil) { break }
+        }
+        if (ruleObj != nil) {
+            return ruleObj
+        }
+        
+        // If we still didn't find a rule, finally try checking any regex rules
+        // (anything starting/ending with slash is treated as a regex
+        // TODO: add sugar to make *.example.com be treated as a regex
+        NSLog("looking for regexes in all the wrong places for \(adjustedHostname)")
+        for rule in (rules as! [String: [String: AnyObject]]) {
+            if (rule.key.hasPrefix("/") && rule.key.hasSuffix("/")) {
+                // power user! just use it as a regex and test it against the hostname
+                
+                // we have to remove the / prefix/suffix first
+                let regexStart = rule.key.index(rule.key.startIndex, offsetBy: 1)
+                let regexEnd = rule.key.index(rule.key.endIndex, offsetBy: -1)
+                let regex = rule.key.substring(with: regexStart..<regexEnd)
+                
+                NSLog("Treating as a regex: \(regex)")
+                if (hostname.range(of: regex, options: .regularExpression) != nil) {
+                    NSLog("  --> MATCHED: \(rule.key) on \(hostname)")
+                    ruleObj = rule.value;
+                }
+            } else if (rule.key.hasPrefix("*.")) {
+                // wildcard subdomain block
+                
+                // first remove the *. prefix
+                var regexRule = rule.key.substring(from: rule.key.index(rule.key.startIndex, offsetBy: 2))
+                NSLog("unprefixed: \(regexRule)")
+                
+                // next remove all other regex special characters
+                // (they usually shouldn't be in hostnames anyway
+                // TODO: escape them and leave them in the regex
+                regexRule = regexRule.replacingOccurrences(of: "\\\\\\^\\$\\.\\|\\?\\*\\+\\(\\)\\[\\{",
+                    with: "\\$0",
+                    options: .regularExpression)
+                NSLog("special chars removed: \(regexRule)")
+                
+                // and re-add the wildcard subdomain part properly
+                regexRule = ".*\\.\(regexRule)";
+                
+                // finally, run it against hostname (make sure to make it work on the root domain also)
+                 NSLog("Treating as a wildcard rule, regex: \(regexRule)")
+                if (hostname.range(of: regexRule, options: .regularExpression) != nil) {
+                    NSLog("  --> MATCHED: \(regexRule) on \(hostname)")
+                    ruleObj = rule.value;
+                }
+            }
+        }
+        
+        return ruleObj
+    }
+    
 	/// Get rule parameters for a flow from the SimpleTunnel user defaults.
 	open class func getRule(_ flow: NEFilterFlow) -> (SCBlockRuleFilterAction, String, [String: AnyObject]) {
 		let hostname = FilterUtilities.getFlowHostname(flow)
@@ -37,7 +133,7 @@ open class FilterUtilities: NSObject {
         
 		guard !hostname.isEmpty else { return (.allow, hostname, [:]) }
 
-		guard let hostNameRule = (defaults?.object(forKey: "rules") as AnyObject).object(forKey: hostname) as? [String: AnyObject] else {
+		guard let hostNameRule = getHostnameRuleObj(hostname) else {
 			NSLog("\(hostname) is set for NO RULES")
 			return (.allow, hostname, [:])
 		}
