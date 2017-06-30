@@ -2,6 +2,12 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:SCUtils.h">
+   </FileRef>
+   <FileRef
+      location = "group:SCUtils.m">
+   </FileRef>
+   <FileRef
       location = "group:SelfControlIOS.xcodeproj">
    </FileRef>
    <FileRef

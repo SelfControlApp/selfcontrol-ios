@@ -90,18 +90,17 @@ open class FilterUtilities: NSObject {
                 
                 // first remove the *. prefix
                 var regexRule = rule.key.substring(from: rule.key.index(rule.key.startIndex, offsetBy: 2))
-                NSLog("unprefixed: \(regexRule)")
                 
                 // next remove all other regex special characters
                 // (they usually shouldn't be in hostnames anyway
                 // TODO: escape them and leave them in the regex
-                regexRule = regexRule.replacingOccurrences(of: "\\\\\\^\\$\\.\\|\\?\\*\\+\\(\\)\\[\\{",
-                    with: "\\$0",
-                    options: .regularExpression)
-                NSLog("special chars removed: \(regexRule)")
+                regexRule = SCUtils.stringWithoutRegexSpecialChars(regexRule)
                 
                 // and re-add the wildcard subdomain part properly
-                regexRule = ".*\\.\(regexRule)";
+                // wildcards for us match the root domain also, because it's
+                // what average-Jane user would normally expect (yes, I know it's
+                // inconsistent with some other uses)
+                regexRule = ".*\\.?\(regexRule)$";
                 
                 // finally, run it against hostname (make sure to make it work on the root domain also)
                  NSLog("Treating as a wildcard rule, regex: \(regexRule)")
@@ -128,7 +127,7 @@ open class FilterUtilities: NSObject {
                 NSLog("*** Block is over! Removing object")
                 defaults?.removeObject(forKey: "blockEndDate")
             } else { NSLog("Allow all, no block.") }
-            return (.allow, hostname, [:])
+            return (.allow, hostname, [: ])
         }
         
 		guard !hostname.isEmpty else { return (.allow, hostname, [:]) }
