@@ -14,6 +14,7 @@
  @discussion This is a façade that will allow us to conditionally take advantage of better time
  interval formatting methods as they become available.
  */
+
 @interface SCTimeIntervalFormatter : NSFormatter
 
 @end

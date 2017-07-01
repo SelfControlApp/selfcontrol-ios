@@ -10,6 +10,8 @@
 #import "SCMainViewController.h"
 #import "SCStartViewController.h"
 #import "SCBlockListViewController.h"
+#import "SCTimeIntervalFormatter.h"
+#import "SCAlertFactory.h"
 #import <Masonry/Masonry.h>
 
 @interface SCStartViewController ()
@@ -143,14 +145,9 @@
     [[SCBlockManager sharedManager] startBlock:^(NSError * err) {
         if (err != nil) {
             // show error message
-            // TODO: abstract into a factory cause this is way too long
-            UIAlertController* alert = [UIAlertController alertControllerWithTitle: @"Couldn't Start Block"
-                                                                           message: [err localizedDescription]
-                                                                    preferredStyle: UIAlertControllerStyleAlert];
-            UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
-                                                                  handler:^(UIAlertAction * action) {}];
-            [alert addAction: defaultAction];
-            [self presentViewController: alert animated: YES completion: nil];
+            [SCAlertFactory showAlertWithError: err
+                                         title: @"Couldn't Start Block"
+                                viewController: self];
         }
         
         // reload the root view controller to show the timer
