@@ -92,8 +92,8 @@ NS_ASSUME_NONNULL_BEGIN
         [self reloadRules];
         
         // set ending date
-        NSInteger blockLengthMinutes = [[NSUserDefaults standardUserDefaults] integerForKey: @"blockLengthMinutes"];
-        self.blockEndDate = [NSDate dateWithTimeInterval: (blockLengthMinutes * 60) sinceDate: [NSDate date]];
+        NSInteger blockLengthSeconds = [[NSUserDefaults standardUserDefaults] integerForKey: @"blockLengthSeconds"];
+        self.blockEndDate = [NSDate dateWithTimeInterval: blockLengthSeconds sinceDate: [NSDate date]];
         
         [self saveToPreferences:^(NSError* err){
             done(err);

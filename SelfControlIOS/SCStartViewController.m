@@ -44,8 +44,8 @@
     }];
     
     UISlider* blockTimeSlider = [UISlider new];
-    blockTimeSlider.minimumValue = 1;
-    blockTimeSlider.maximumValue = 1440;
+    blockTimeSlider.minimumValue = 60; // 1 minute
+    blockTimeSlider.maximumValue = 86400; // 1 day
     blockTimeSlider.continuous = YES;
     [self.view addSubview: blockTimeSlider];
     [blockTimeSlider mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -54,8 +54,8 @@
         make.right.equalTo(self.view.mas_right).with.offset(-40);
     }];
     self.blockTimeSlider = blockTimeSlider;
-    // pull initial value from defautls
-    self.blockTimeSlider.value = [[NSUserDefaults standardUserDefaults] integerForKey:@"blockLengthMinutes"];
+    // pull initial value from defaults
+    self.blockTimeSlider.value = [[NSUserDefaults standardUserDefaults] integerForKey:@"blockLengthSeconds"];
 
     // Todo: actually convert this label into proper units
     UILabel* humanReadableBlockTimeLabel = [UILabel new];
@@ -103,11 +103,17 @@
 }
 
 - (void)blockTimeSliderChanged:(id)sender {
+    // make a formatter if we don't have one
+    static SCTimeIntervalFormatter* formatter = nil;
+    if (formatter == nil) {
+        formatter = [[SCTimeIntervalFormatter alloc] init];
+    }
+
     // update time label
-    self.humanReadableBlockTimeLabel.text = [NSString stringWithFormat: @"%d minutes", (int)self.blockTimeSlider.value];
+    self.humanReadableBlockTimeLabel.text = [formatter stringForObjectValue:@(self.blockTimeSlider.value)];
     
     // save to defaults
-    [[NSUserDefaults standardUserDefaults] setInteger: self.blockTimeSlider.value forKey: @"blockLengthMinutes"];
+    [[NSUserDefaults standardUserDefaults] setInteger: self.blockTimeSlider.value forKey: @"blockLengthSeconds"];
 }
 
 - (void)updateSitesBlockedLabel {

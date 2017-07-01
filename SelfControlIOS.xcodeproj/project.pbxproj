@@ -12,6 +12,7 @@
 		A339774405143C9F31B34DA3 /* Pods_SelfControlIOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E38E2A3851FB26B638BC57F /* Pods_SelfControlIOSTests.framework */; };
 		A7004475EED8281FC7E23E31 /* Pods_SCFilterControlProvider.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FEDDAF9959688D12A1484F5 /* Pods_SCFilterControlProvider.framework */; };
 		C415A43D29B9C5251812EF9B /* Pods_SelfControlIOSUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40D1DD9B7ABFD420591B5C45 /* Pods_SelfControlIOSUITests.framework */; };
+		CB0A89491F08357200F2A352 /* SCTimeIntervalFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = CB0A89481F08357200F2A352 /* SCTimeIntervalFormatter.m */; };
 		CB0E6AA11EC19759003CA02B /* SCUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = CB0E6AA01EC19759003CA02B /* SCUtils.m */; };
 		CB0E6AA21EC1982A003CA02B /* SCUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = CB0E6AA01EC19759003CA02B /* SCUtils.m */; };
 		CB0E6AA31EC1982A003CA02B /* SCUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = CB0E6AA01EC19759003CA02B /* SCUtils.m */; };
@@ -107,6 +108,8 @@
 		C21782EE3B920946130B3C63 /* Pods-SCFilterControlProvider.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SCFilterControlProvider.release.xcconfig"; path = "Pods/Target Support Files/Pods-SCFilterControlProvider/Pods-SCFilterControlProvider.release.xcconfig"; sourceTree = "<group>"; };
 		C71BD1CBC762FFF03C7DF4E8 /* Pods-SCFilterDataProvider.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SCFilterDataProvider.release.xcconfig"; path = "Pods/Target Support Files/Pods-SCFilterDataProvider/Pods-SCFilterDataProvider.release.xcconfig"; sourceTree = "<group>"; };
 		CB0A04121E9B556B00EDD04F /* SelfControlIOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SelfControlIOS.entitlements; sourceTree = "<group>"; };
+		CB0A89471F08357200F2A352 /* SCTimeIntervalFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCTimeIntervalFormatter.h; sourceTree = "<group>"; };
+		CB0A89481F08357200F2A352 /* SCTimeIntervalFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCTimeIntervalFormatter.m; sourceTree = "<group>"; };
 		CB0E6A9F1EC19759003CA02B /* SCUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCUtils.h; sourceTree = "<group>"; };
 		CB0E6AA01EC19759003CA02B /* SCUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCUtils.m; sourceTree = "<group>"; };
 		CB5D28AC1E9B572600EF7753 /* SCFilterDataProvider.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SCFilterDataProvider.entitlements; sourceTree = "<group>"; };
@@ -226,6 +229,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		CB0A894A1F08357600F2A352 /* Formatters */ = {
+			isa = PBXGroup;
+			children = (
+				CB0A89471F08357200F2A352 /* SCTimeIntervalFormatter.h */,
+				CB0A89481F08357200F2A352 /* SCTimeIntervalFormatter.m */,
+			);
+			name = Formatters;
+			sourceTree = "<group>";
+		};
 		CB84E2E21E109803005A0A6B /* SCFilterDataProvider */ = {
 			isa = PBXGroup;
 			children = (
@@ -295,6 +307,7 @@
 				CBF188DE1E62AC83008EFB00 /* SCBlockRule.h */,
 				CBF188DF1E62AC83008EFB00 /* SCBlockRule.m */,
 				CBF188DB1E62AAB4008EFB00 /* SCBlockManager.h */,
+				CB0A894A1F08357600F2A352 /* Formatters */,
 				CBF188DC1E62AAB4008EFB00 /* SCBlockManager.m */,
 				CB0E6A9F1EC19759003CA02B /* SCUtils.h */,
 				CB0E6AA01EC19759003CA02B /* SCUtils.m */,
@@ -495,6 +508,20 @@
 			knownRegions = (
 				en,
 				Base,
+				de,
+				es,
+				fa,
+				fr,
+				it,
+				ja,
+				ko,
+				nl,
+				pt,
+				pt_BR,
+				sv,
+				tr,
+				"zh-Hans",
+				"pt-BR",
 			);
 			mainGroup = CB93D19E1E0F216700CE0571;
 			productRefGroup = CB93D1A81E0F216700CE0571 /* Products */;
@@ -784,6 +811,7 @@
 				CB84E3121E10AA83005A0A6B /* FilterUtilities.swift in Sources */,
 				CBF188D71E629D03008EFB00 /* SCTimerViewController.m in Sources */,
 				CBF188D41E629CAC008EFB00 /* SCBlockListViewController.m in Sources */,
+				CB0A89491F08357200F2A352 /* SCTimeIntervalFormatter.m in Sources */,
 				CB93D1AD1E0F216700CE0571 /* BlockViewController.swift in Sources */,
 				CBF188CB1E6299F0008EFB00 /* main.m in Sources */,
 				CBF188DA1E629D16008EFB00 /* SCMainViewController.m in Sources */,
@@ -1049,6 +1077,10 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = SelfControlIOS/SelfControlIOS.entitlements;
 				DEVELOPMENT_TEAM = L6W5L88KN7;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SelfControlIOS/selfcontrol/Pods/Sparkle",
+				);
 				INFOPLIST_FILE = SelfControlIOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.selfcontrolapp.SelfControlIOS;
@@ -1070,6 +1102,10 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = SelfControlIOS/SelfControlIOS.entitlements;
 				DEVELOPMENT_TEAM = L6W5L88KN7;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SelfControlIOS/selfcontrol/Pods/Sparkle",
+				);
 				INFOPLIST_FILE = SelfControlIOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.selfcontrolapp.SelfControlIOS;
