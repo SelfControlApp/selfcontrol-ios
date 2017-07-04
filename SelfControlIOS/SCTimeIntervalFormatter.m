@@ -6,7 +6,7 @@
 //
 //
 
-//#import <FormatterKit/TTTTimeIntervalFormatter.h>
+#import <FormatterKit/TTTTimeIntervalFormatter.h>
 #import "SCTimeIntervalFormatter.h"
 
 @implementation SCTimeIntervalFormatter
@@ -21,28 +21,27 @@
 }
 
 - (NSString *)formatSeconds:(NSTimeInterval)seconds {
-    return [NSString stringWithFormat: @"%d seconds", (int)seconds];
-//    static TTTTimeIntervalFormatter* timeIntervalFormatter = nil;
-//    if (timeIntervalFormatter == nil) {
-//        timeIntervalFormatter = [[TTTTimeIntervalFormatter alloc] init];
-//        timeIntervalFormatter.pastDeicticExpression = @"";
-//        timeIntervalFormatter.presentDeicticExpression = @"";
-//        timeIntervalFormatter.futureDeicticExpression = @"";
-//        timeIntervalFormatter.significantUnits = (NSCalendarUnitYear |
-//                                                  NSCalendarUnitMonth |
-//                                                  NSCalendarUnitDay |
-//                                                  NSCalendarUnitHour |
-//                                                  NSCalendarUnitMinute);
-//        timeIntervalFormatter.numberOfSignificantUnits = 0;
-//        timeIntervalFormatter.leastSignificantUnit = NSCalendarUnitMinute;
-//    }
-//    
-//    NSString* formatted = [timeIntervalFormatter stringForTimeInterval:seconds];
-//    if ([formatted length] == 0) {
-//        formatted = [self stringIndicatingZeroMinutes];
-//    }
-//    
-//    return formatted;
+    static TTTTimeIntervalFormatter* timeIntervalFormatter = nil;
+    if (timeIntervalFormatter == nil) {
+        timeIntervalFormatter = [[TTTTimeIntervalFormatter alloc] init];
+        timeIntervalFormatter.pastDeicticExpression = @"";
+        timeIntervalFormatter.presentDeicticExpression = @"";
+        timeIntervalFormatter.futureDeicticExpression = @"";
+        timeIntervalFormatter.significantUnits = (NSCalendarUnitYear |
+                                                  NSCalendarUnitMonth |
+                                                  NSCalendarUnitDay |
+                                                  NSCalendarUnitHour |
+                                                  NSCalendarUnitMinute);
+        timeIntervalFormatter.numberOfSignificantUnits = 0;
+        timeIntervalFormatter.leastSignificantUnit = NSCalendarUnitMinute;
+    }
+    
+    NSString* formatted = [timeIntervalFormatter stringForTimeInterval:seconds];
+    if ([formatted length] == 0) {
+        formatted = [self stringIndicatingZeroMinutes];
+    }
+    
+    return formatted;
 }
 
 - (NSString *)stringIndicatingZeroMinutes {
