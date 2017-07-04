@@ -22,4 +22,25 @@
     [vc presentViewController: alert animated: YES completion: nil];
 }
 
++ (void)showConfirmationDialogWithTitle:(NSString*)title
+                            description:(NSString*)description
+                          confirmAction:(void(^)())handler
+                         viewController: (UIViewController*)vc {
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle: title
+                                                                   message: description
+                                                            preferredStyle: UIAlertControllerStyleAlert];
+    
+    UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
+                                                          handler:^(UIAlertAction * action) {}];
+    [alert addAction: cancelAction];
+    
+    UIAlertAction* confirmAction = [UIAlertAction actionWithTitle:@"Confirm" style:UIAlertActionStyleDefault
+                                                         handler:^(UIAlertAction * action) {
+                                                             [handler invoke];
+                                                         }];
+    [alert addAction: confirmAction];
+    
+    [vc presentViewController: alert animated: YES completion: nil];
+}
+
 @end

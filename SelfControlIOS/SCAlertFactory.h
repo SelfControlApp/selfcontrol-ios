@@ -15,5 +15,8 @@
                      title:(NSString*)title
             viewController:(UIViewController*)vc;
 
-    
++ (void)showConfirmationDialogWithTitle:(NSString*)title
+                            description:(NSString*)description
+                          confirmAction:(void(^)())handler
+                         viewController: (UIViewController*)vc;
 @end

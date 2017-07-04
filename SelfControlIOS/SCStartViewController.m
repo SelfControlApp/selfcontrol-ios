@@ -94,7 +94,7 @@
     startBlockButton.titleLabel.font = [UIFont systemFontOfSize: 24.0];
     [startBlockButton setTitle: @"Start Block" forState: UIControlStateNormal];
     startBlockButton.backgroundColor = [UIColor blueColor];
-    [startBlockButton addTarget: self action: @selector(startBlock) forControlEvents: UIControlEventTouchUpInside];
+    [startBlockButton addTarget: self action: @selector(startBlockButtonPressed) forControlEvents: UIControlEventTouchUpInside];
     [self.view addSubview: startBlockButton];
     [startBlockButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.view.mas_bottom);
@@ -104,22 +104,26 @@
     }];
 }
 
-- (void)blockTimeSliderChanged:(id)sender {
+- (NSString*)humanReadableBlockTime {
     // make a formatter if we don't have one
     static SCTimeIntervalFormatter* formatter = nil;
     if (formatter == nil) {
         formatter = [[SCTimeIntervalFormatter alloc] init];
     }
 
+    return [formatter stringForObjectValue:@(self.blockTimeSlider.value)];
+}
+
+- (void)blockTimeSliderChanged:(id)sender {
     // update time label
-    self.humanReadableBlockTimeLabel.text = [formatter stringForObjectValue:@(self.blockTimeSlider.value)];
+    self.humanReadableBlockTimeLabel.text = [self humanReadableBlockTime];
     
     // save to defaults
     [[NSUserDefaults standardUserDefaults] setInteger: self.blockTimeSlider.value forKey: @"blockLengthSeconds"];
 }
 
 - (void)updateSitesBlockedLabel {
-    self.sitesBlockedLabel.text = [NSString stringWithFormat: @"%d sites will be blocked.", (int)[[[SCBlockManager sharedManager] blockRules] count]];
+    self.sitesBlockedLabel.text = [NSString stringWithFormat: @"%lu sites will be blocked.", (unsigned long)[[[SCBlockManager sharedManager] blockRules] count]];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -139,6 +143,17 @@
 - (void)editBlockList {
     [self.navigationController pushViewController: [SCBlockListViewController new] animated: YES];
     [self.navigationController setNavigationBarHidden: NO animated: YES];
+}
+
+- (void)startBlockButtonPressed {
+    NSString* confirmText = [NSString stringWithFormat: @"Are you sure you want to start the block? %lu sites will be blocked for %@.", (unsigned long)[[[SCBlockManager sharedManager] blockRules] count], self.humanReadableBlockTime];
+    
+    [SCAlertFactory showConfirmationDialogWithTitle: @"Confirm Block"
+                                        description: confirmText
+                                      confirmAction:^{
+                                          [self startBlock];
+                                      }
+                                     viewController: self];
 }
 
 - (void)startBlock {

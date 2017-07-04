@@ -1078,7 +1078,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8C69D7AC2265A2B968A6F971 /* Pods-SelfControlIOS.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = SelfControlIOS/SelfControlIOS.entitlements;
@@ -1103,7 +1103,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0CCCBAD2E791E83DCB010F17 /* Pods-SelfControlIOS.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = SelfControlIOS/SelfControlIOS.entitlements;

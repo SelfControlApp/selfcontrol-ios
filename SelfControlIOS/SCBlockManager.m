@@ -96,6 +96,11 @@ NS_ASSUME_NONNULL_BEGIN
         self.blockEndDate = [NSDate dateWithTimeInterval: blockLengthSeconds sinceDate: [NSDate date]];
         
         [self saveToPreferences:^(NSError* err){
+            if (err) {
+                // reset block end date to current time so that we don't think the block is running
+                self.blockEndDate = [NSDate date];
+            }
+
             done(err);
         }];
     }];
