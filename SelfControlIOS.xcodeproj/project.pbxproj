@@ -33,6 +33,7 @@
 		CB93D1B71E0F216700CE0571 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB93D1B51E0F216700CE0571 /* LaunchScreen.storyboard */; };
 		CB93D1C21E0F216800CE0571 /* SelfControlIOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB93D1C11E0F216800CE0571 /* SelfControlIOSTests.swift */; };
 		CB93D1CD1E0F216800CE0571 /* SelfControlIOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB93D1CC1E0F216800CE0571 /* SelfControlIOSUITests.swift */; };
+		CBCFC6131F0C330F00F11008 /* SCImportSitesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBCFC6121F0C330F00F11008 /* SCImportSitesViewController.m */; };
 		CBF188CB1E6299F0008EFB00 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF188CA1E6299F0008EFB00 /* main.m */; };
 		CBF188CE1E629A3B008EFB00 /* SCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF188CD1E629A3B008EFB00 /* SCAppDelegate.m */; };
 		CBF188D11E629B5A008EFB00 /* SCStartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF188D01E629B5A008EFB00 /* SCStartViewController.m */; };
@@ -139,6 +140,8 @@
 		CB93D1C81E0F216800CE0571 /* SelfControlIOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SelfControlIOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB93D1CC1E0F216800CE0571 /* SelfControlIOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfControlIOSUITests.swift; sourceTree = "<group>"; };
 		CB93D1CE1E0F216800CE0571 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CBCFC6111F0C330F00F11008 /* SCImportSitesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCImportSitesViewController.h; sourceTree = "<group>"; };
+		CBCFC6121F0C330F00F11008 /* SCImportSitesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCImportSitesViewController.m; sourceTree = "<group>"; };
 		CBF188C91E6299F0008EFB00 /* SelfControlIOS-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SelfControlIOS-Bridging-Header.h"; sourceTree = "<group>"; };
 		CBF188CA1E6299F0008EFB00 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CBF188CC1E629A3B008EFB00 /* SCAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCAppDelegate.h; sourceTree = "<group>"; };
@@ -303,6 +306,8 @@
 				CBF188E41E62BA23008EFB00 /* SCBlockRuleTableViewCell.m */,
 				CBF188D21E629CAC008EFB00 /* SCBlockListViewController.h */,
 				CBF188D31E629CAC008EFB00 /* SCBlockListViewController.m */,
+				CBCFC6111F0C330F00F11008 /* SCImportSitesViewController.h */,
+				CBCFC6121F0C330F00F11008 /* SCImportSitesViewController.m */,
 				CBF188D51E629D03008EFB00 /* SCTimerViewController.h */,
 				CBF188D61E629D03008EFB00 /* SCTimerViewController.m */,
 				CB93D1AC1E0F216700CE0571 /* BlockViewController.swift */,
@@ -810,6 +815,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CBCFC6131F0C330F00F11008 /* SCImportSitesViewController.m in Sources */,
 				CB93D1AF1E0F216700CE0571 /* BlockListViewController.swift in Sources */,
 				CBF188E51E62BA23008EFB00 /* SCBlockRuleTableViewCell.m in Sources */,
 				CBF188E01E62AC83008EFB00 /* SCBlockRule.m in Sources */,

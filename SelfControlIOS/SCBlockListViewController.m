@@ -9,6 +9,7 @@
 #import "SCBlockListViewController.h"
 #import "SCBlockManager.h"
 #import "SCBlockRuleTableViewCell.h"
+#import "SCImportSitesViewController.h"
 
 typedef NS_ENUM(NSInteger, SCBlockListSection) {
     SCBlockListSectionButtons = 0,
@@ -49,7 +50,7 @@ static NSString * const SCBlockListSiteCellIdentifier = @"SiteCell";
     if (section == SCBlockListSectionButtons) {
         return 2;
     } else if (section == SCBlockListSectionSites) {
-        return [[[SCBlockManager sharedManager] blockRules] count];
+        return [[SCBlockManager sharedManager] blockRules].count;
     }
     
     return 0;
@@ -129,6 +130,9 @@ static NSString * const SCBlockListSiteCellIdentifier = @"SiteCell";
         
     } else if (indexPath.row == 1) {
         // import common sites
+        SCImportSitesViewController* importSitesVC = [SCImportSitesViewController new];
+        importSitesVC.blockListViewController = self;
+        [self.navigationController pushViewController: importSitesVC animated: YES];
     }
 }
 
@@ -154,6 +158,21 @@ static NSString * const SCBlockListSiteCellIdentifier = @"SiteCell";
     NSMutableArray<SCBlockRule *> *blockRules = [[[SCBlockManager sharedManager] blockRules] mutableCopy];
     [blockRules replaceObjectAtIndex:indexPath.row withObject:newRule];
     [SCBlockManager sharedManager].blockRules = blockRules;
+}
+
+# pragma mark - Other methods
+
+- (void)addSitesToList:(NSArray<SCBlockRule*>*)newBlockRules {
+    NSMutableArray<SCBlockRule *> *blockRules = [[[SCBlockManager sharedManager] blockRules] mutableCopy];
+    [blockRules addObjectsFromArray: newBlockRules];
+    [SCBlockManager sharedManager].blockRules = blockRules;
+
+    NSMutableArray* indexPaths = [NSMutableArray array];
+    for (unsigned long i = blockRules.count - newBlockRules.count; i < blockRules.count; i++) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow: i inSection: SCBlockListSectionSites];
+        [indexPaths addObject: indexPath];
+    }
+    [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 @end

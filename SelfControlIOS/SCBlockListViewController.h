@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SCBlockRule.h"
 
 @interface SCBlockListViewController : UITableViewController
+
+- (void)addSitesToList:(NSArray<SCBlockRule*>*)sites;
 
 @end

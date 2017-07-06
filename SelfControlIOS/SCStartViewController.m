@@ -123,7 +123,7 @@
 }
 
 - (void)updateSitesBlockedLabel {
-    self.sitesBlockedLabel.text = [NSString stringWithFormat: @"%lu sites will be blocked.", (unsigned long)[[[SCBlockManager sharedManager] blockRules] count]];
+    self.sitesBlockedLabel.text = [NSString stringWithFormat: @"%lu sites will be blocked.", (unsigned long)[[SCBlockManager sharedManager] blockRules].count];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -146,7 +146,7 @@
 }
 
 - (void)startBlockButtonPressed {
-    NSString* confirmText = [NSString stringWithFormat: @"Are you sure you want to start the block? %lu sites will be blocked for %@.", (unsigned long)[[[SCBlockManager sharedManager] blockRules] count], self.humanReadableBlockTime];
+    NSString* confirmText = [NSString stringWithFormat: @"Are you sure you want to start the block? %lu sites will be blocked for %@.", (unsigned long)[[SCBlockManager sharedManager] blockRules].count, self.humanReadableBlockTime];
     
     [SCAlertFactory showConfirmationDialogWithTitle: @"Confirm Block"
                                         description: confirmText
