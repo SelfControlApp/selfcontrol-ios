@@ -135,6 +135,19 @@ static NSString * const SCBlockListSiteCellIdentifier = @"SiteCell";
 #pragma mark - SCBlockRuleTableViewCellDelegate
 
 - (void)blockRuleCellDidChange:(SCBlockRuleTableViewCell *)cell {
+    // delete empty cells when editing completes
+    NSString* trimmedText = [cell.textField.text stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    if ([trimmedText length] < 1) {
+        NSMutableArray<SCBlockRule *> *rules = [[[SCBlockManager sharedManager] blockRules] mutableCopy];
+        NSIndexPath* indexPath = [self.tableView indexPathForCell: cell];
+
+        [rules removeObjectAtIndex: indexPath.row];
+        [[SCBlockManager sharedManager] setBlockRules:rules];
+
+        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        return;
+    }
+    
     SCBlockRule *newRule = [[SCBlockRule alloc] initWithHostname:cell.textField.text];
     
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];

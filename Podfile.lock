@@ -1,12 +1,17 @@
 PODS:
+  - FormatterKit/Resources (1.8.1)
+  - FormatterKit/TimeIntervalFormatter (1.8.1):
+    - FormatterKit/Resources
   - Masonry (1.0.2)
 
 DEPENDENCIES:
+  - FormatterKit/TimeIntervalFormatter (~> 1.7)
   - Masonry (~> 1.0.2)
 
 SPEC CHECKSUMS:
+  FormatterKit: 11ad17b983200629246a5a466f6f1bfa2df823cb
   Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
 
-PODFILE CHECKSUM: e608d940d36c3c1ba1b1d4eb69e91daffaff8a6a
+PODFILE CHECKSUM: 0ae327b172afc30412e7770516159c887e1b731c
 
 COCOAPODS: 1.2.0

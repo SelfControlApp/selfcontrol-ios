@@ -32,7 +32,13 @@ class DataExtension: NEFilterDataProvider {
 
 		// Look for a matching rule in the current set of rules.
 		let (ruleType, hostname, hostNameRule) = FilterUtilities.getRule(flow)
-
+        
+        // ignore blank rules if they happen to slip in
+        let trimmedHostname = hostname.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        if (trimmedHostname.characters.count < 1) {
+            return NEFilterNewFlowVerdict.allow();
+        }
+        
 		switch ruleType {
 			case .block:
 				NSLog("\(hostname) is set to be blocked")

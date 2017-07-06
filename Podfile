@@ -23,6 +23,7 @@ target 'SelfControlIOS' do
 
   # Pods for SelfControlIOS
   pod 'Masonry', '~> 1.0.2'
+  pod 'FormatterKit/TimeIntervalFormatter', '~> 1.7'
 
   target 'SelfControlIOSTests' do
     inherit! :search_paths

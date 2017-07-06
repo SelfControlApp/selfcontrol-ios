@@ -10,6 +10,8 @@
 #import "SCMainViewController.h"
 #import "SCStartViewController.h"
 #import "SCBlockListViewController.h"
+#import "SCTimeIntervalFormatter.h"
+#import "SCAlertFactory.h"
 #import <Masonry/Masonry.h>
 
 @interface SCStartViewController ()
@@ -44,8 +46,8 @@
     }];
     
     UISlider* blockTimeSlider = [UISlider new];
-    blockTimeSlider.minimumValue = 1;
-    blockTimeSlider.maximumValue = 1440;
+    blockTimeSlider.minimumValue = 60; // 1 minute
+    blockTimeSlider.maximumValue = 86400; // 1 day
     blockTimeSlider.continuous = YES;
     [self.view addSubview: blockTimeSlider];
     [blockTimeSlider mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -54,8 +56,8 @@
         make.right.equalTo(self.view.mas_right).with.offset(-40);
     }];
     self.blockTimeSlider = blockTimeSlider;
-    // pull initial value from defautls
-    self.blockTimeSlider.value = [[NSUserDefaults standardUserDefaults] integerForKey:@"blockLengthMinutes"];
+    // pull initial value from defaults
+    self.blockTimeSlider.value = [[NSUserDefaults standardUserDefaults] integerForKey:@"blockLengthSeconds"];
 
     // Todo: actually convert this label into proper units
     UILabel* humanReadableBlockTimeLabel = [UILabel new];
@@ -103,11 +105,17 @@
 }
 
 - (void)blockTimeSliderChanged:(id)sender {
+    // make a formatter if we don't have one
+    static SCTimeIntervalFormatter* formatter = nil;
+    if (formatter == nil) {
+        formatter = [[SCTimeIntervalFormatter alloc] init];
+    }
+
     // update time label
-    self.humanReadableBlockTimeLabel.text = [NSString stringWithFormat: @"%d minutes", (int)self.blockTimeSlider.value];
+    self.humanReadableBlockTimeLabel.text = [formatter stringForObjectValue:@(self.blockTimeSlider.value)];
     
     // save to defaults
-    [[NSUserDefaults standardUserDefaults] setInteger: self.blockTimeSlider.value forKey: @"blockLengthMinutes"];
+    [[NSUserDefaults standardUserDefaults] setInteger: self.blockTimeSlider.value forKey: @"blockLengthSeconds"];
 }
 
 - (void)updateSitesBlockedLabel {
@@ -148,14 +156,9 @@
     [[SCBlockManager sharedManager] startBlock:^(NSError * err) {
         if (err != nil) {
             // show error message
-            // TODO: abstract into a factory cause this is way too long
-            UIAlertController* alert = [UIAlertController alertControllerWithTitle: @"Couldn't Start Block"
-                                                                           message: [err localizedDescription]
-                                                                    preferredStyle: UIAlertControllerStyleAlert];
-            UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
-                                                                  handler:^(UIAlertAction * action) {}];
-            [alert addAction: defaultAction];
-            [self presentViewController: alert animated: YES completion: nil];
+            [SCAlertFactory showAlertWithError: err
+                                         title: @"Couldn't Start Block"
+                                viewController: self];
         }
         
         // reload the root view controller to show the timer
