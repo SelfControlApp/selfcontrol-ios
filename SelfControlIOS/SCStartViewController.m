@@ -94,7 +94,7 @@
     startBlockButton.titleLabel.font = [UIFont systemFontOfSize: 24.0];
     [startBlockButton setTitle: @"Start Block" forState: UIControlStateNormal];
     startBlockButton.backgroundColor = [UIColor blueColor];
-    [startBlockButton addTarget: self action: @selector(startBlock) forControlEvents: UIControlEventTouchUpInside];
+    [startBlockButton addTarget: self action: @selector(confirmStartBlock) forControlEvents: UIControlEventTouchUpInside];
     [self.view addSubview: startBlockButton];
     [startBlockButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.view.mas_bottom);
@@ -139,6 +139,17 @@
 - (void)editBlockList {
     [self.navigationController pushViewController: [SCBlockListViewController new] animated: YES];
     [self.navigationController setNavigationBarHidden: NO animated: YES];
+}
+
+- (void)confirmStartBlock {
+    UIAlertController* prompt = [UIAlertController alertControllerWithTitle:@"Confirm" message:@"Are you sure you want to start blocking?" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self startBlock];
+    }];
+    UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * action) {}];
+    [prompt addAction:defaultAction];
+    [prompt addAction:cancelAction];
+    [self presentViewController:prompt animated:YES completion:nil];
 }
 
 - (void)startBlock {
