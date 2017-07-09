@@ -26,9 +26,6 @@
 		CB84E3121E10AA83005A0A6B /* FilterUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB84E3111E10AA83005A0A6B /* FilterUtilities.swift */; };
 		CB84E3131E10AAB6005A0A6B /* FilterUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB84E3111E10AA83005A0A6B /* FilterUtilities.swift */; };
 		CB84E3141E10AAB7005A0A6B /* FilterUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB84E3111E10AA83005A0A6B /* FilterUtilities.swift */; };
-		CB93D1AD1E0F216700CE0571 /* BlockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB93D1AC1E0F216700CE0571 /* BlockViewController.swift */; };
-		CB93D1AF1E0F216700CE0571 /* BlockListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB93D1AE1E0F216700CE0571 /* BlockListViewController.swift */; };
-		CB93D1B21E0F216700CE0571 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB93D1B01E0F216700CE0571 /* Main.storyboard */; };
 		CB93D1B41E0F216700CE0571 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB93D1B31E0F216700CE0571 /* Assets.xcassets */; };
 		CB93D1B71E0F216700CE0571 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB93D1B51E0F216700CE0571 /* LaunchScreen.storyboard */; };
 		CB93D1C21E0F216800CE0571 /* SelfControlIOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB93D1C11E0F216800CE0571 /* SelfControlIOSTests.swift */; };
@@ -128,9 +125,6 @@
 		CB84E30E1E109AB5005A0A6B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CB84E3111E10AA83005A0A6B /* FilterUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterUtilities.swift; sourceTree = "<group>"; };
 		CB93D1A71E0F216700CE0571 /* SelfControlIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SelfControlIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		CB93D1AC1E0F216700CE0571 /* BlockViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockViewController.swift; sourceTree = "<group>"; };
-		CB93D1AE1E0F216700CE0571 /* BlockListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockListViewController.swift; sourceTree = "<group>"; };
-		CB93D1B11E0F216700CE0571 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CB93D1B31E0F216700CE0571 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CB93D1B61E0F216700CE0571 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CB93D1B81E0F216700CE0571 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -310,8 +304,6 @@
 				CBCFC6121F0C330F00F11008 /* SCImportSitesViewController.m */,
 				CBF188D51E629D03008EFB00 /* SCTimerViewController.h */,
 				CBF188D61E629D03008EFB00 /* SCTimerViewController.m */,
-				CB93D1AC1E0F216700CE0571 /* BlockViewController.swift */,
-				CB93D1AE1E0F216700CE0571 /* BlockListViewController.swift */,
 				CBF188DE1E62AC83008EFB00 /* SCBlockRule.h */,
 				CBF188DF1E62AC83008EFB00 /* SCBlockRule.m */,
 				CBF188DB1E62AAB4008EFB00 /* SCBlockManager.h */,
@@ -321,7 +313,6 @@
 				CB0A894A1F08357600F2A352 /* Formatters */,
 				CB0E6A9F1EC19759003CA02B /* SCUtils.h */,
 				CB0E6AA01EC19759003CA02B /* SCUtils.m */,
-				CB93D1B01E0F216700CE0571 /* Main.storyboard */,
 				CB93D1B31E0F216700CE0571 /* Assets.xcassets */,
 				CB93D1B51E0F216700CE0571 /* LaunchScreen.storyboard */,
 				CB93D1B81E0F216700CE0571 /* Info.plist */,
@@ -570,7 +561,6 @@
 			files = (
 				CB93D1B71E0F216700CE0571 /* LaunchScreen.storyboard in Resources */,
 				CB93D1B41E0F216700CE0571 /* Assets.xcassets in Resources */,
-				CB93D1B21E0F216700CE0571 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -816,7 +806,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				CBCFC6131F0C330F00F11008 /* SCImportSitesViewController.m in Sources */,
-				CB93D1AF1E0F216700CE0571 /* BlockListViewController.swift in Sources */,
 				CBF188E51E62BA23008EFB00 /* SCBlockRuleTableViewCell.m in Sources */,
 				CBF188E01E62AC83008EFB00 /* SCBlockRule.m in Sources */,
 				CB84E3121E10AA83005A0A6B /* FilterUtilities.swift in Sources */,
@@ -824,7 +813,6 @@
 				CBF188D41E629CAC008EFB00 /* SCBlockListViewController.m in Sources */,
 				CB0A89491F08357200F2A352 /* SCTimeIntervalFormatter.m in Sources */,
 				CB0A894D1F08399500F2A352 /* SCAlertFactory.m in Sources */,
-				CB93D1AD1E0F216700CE0571 /* BlockViewController.swift in Sources */,
 				CBF188CB1E6299F0008EFB00 /* main.m in Sources */,
 				CBF188DA1E629D16008EFB00 /* SCMainViewController.m in Sources */,
 				CB0E6AA11EC19759003CA02B /* SCUtils.m in Sources */,
@@ -876,14 +864,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		CB93D1B01E0F216700CE0571 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				CB93D1B11E0F216700CE0571 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		CB93D1B51E0F216700CE0571 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

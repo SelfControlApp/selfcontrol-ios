@@ -127,7 +127,7 @@ static NSArray* SCSiteImportSets = nil;
     
     NSMutableArray* rules = [NSMutableArray array];
     for (unsigned long i = 0; i < sites.count; i++) {
-        [rules addObject: [[SCBlockRule alloc] initWithHostname: sites[i]]];
+        [rules addObject: [SCBlockRule ruleWithHostname: sites[i]]];
     }
     
     [blockListViewController addSitesToList: rules];

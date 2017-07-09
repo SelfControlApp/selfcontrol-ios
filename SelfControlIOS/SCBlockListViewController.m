@@ -97,10 +97,7 @@ static NSString * const SCBlockListSiteCellIdentifier = @"SiteCell";
         return;
     
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        NSMutableArray<SCBlockRule *> *rules = [[[SCBlockManager sharedManager] blockRules] mutableCopy];
-        [rules removeObjectAtIndex:indexPath.row];
-        [[SCBlockManager sharedManager] setBlockRules:rules];
-        
+        [[SCBlockManager sharedManager] removeBlockRuleAtIndex: indexPath.row];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
 }
@@ -116,11 +113,9 @@ static NSString * const SCBlockListSiteCellIdentifier = @"SiteCell";
     
     if (indexPath.row == 0) {
         // "Add New Site" button
-        NSMutableArray<SCBlockRule *> *blockRules = [[[SCBlockManager sharedManager] blockRules] mutableCopy];
-        [blockRules addObject: [[SCBlockRule alloc] initWithHostname: @""]];
-        [SCBlockManager sharedManager].blockRules = blockRules;
+        [[SCBlockManager sharedManager] addBlockRule: [SCBlockRule ruleWithHostname: @""]];
         
-        NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:(blockRules.count - 1) inSection:SCBlockListSectionSites];
+        NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:([SCBlockManager sharedManager].blockRules.count - 1) inSection:SCBlockListSectionSites];
         [tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -142,17 +137,14 @@ static NSString * const SCBlockListSiteCellIdentifier = @"SiteCell";
     // delete empty cells when editing completes
     NSString* trimmedText = [cell.textField.text stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
     if ([trimmedText length] < 1) {
-        NSMutableArray<SCBlockRule *> *rules = [[[SCBlockManager sharedManager] blockRules] mutableCopy];
         NSIndexPath* indexPath = [self.tableView indexPathForCell: cell];
-
-        [rules removeObjectAtIndex: indexPath.row];
-        [[SCBlockManager sharedManager] setBlockRules:rules];
+        [[SCBlockManager sharedManager] removeBlockRuleAtIndex: indexPath.row];
 
         [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
         return;
     }
     
-    SCBlockRule *newRule = [[SCBlockRule alloc] initWithHostname:cell.textField.text];
+    SCBlockRule *newRule = [SCBlockRule ruleWithHostname:cell.textField.text];
     
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     NSMutableArray<SCBlockRule *> *blockRules = [[[SCBlockManager sharedManager] blockRules] mutableCopy];
@@ -163,9 +155,8 @@ static NSString * const SCBlockListSiteCellIdentifier = @"SiteCell";
 # pragma mark - Other methods
 
 - (void)addSitesToList:(NSArray<SCBlockRule*>*)newBlockRules {
-    NSMutableArray<SCBlockRule *> *blockRules = [[[SCBlockManager sharedManager] blockRules] mutableCopy];
-    [blockRules addObjectsFromArray: newBlockRules];
-    [SCBlockManager sharedManager].blockRules = blockRules;
+    NSArray<SCBlockRule *> *blockRules = [SCBlockManager sharedManager].blockRules;
+    [[SCBlockManager sharedManager] addBlockRules: newBlockRules];
 
     NSMutableArray* indexPaths = [NSMutableArray array];
     for (unsigned long i = blockRules.count - newBlockRules.count; i < blockRules.count; i++) {

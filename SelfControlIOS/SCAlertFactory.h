@@ -19,4 +19,5 @@
                             description:(NSString*)description
                           confirmAction:(void(^)())handler
                          viewController: (UIViewController*)vc;
+
 @end

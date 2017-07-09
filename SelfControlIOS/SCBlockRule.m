@@ -26,6 +26,10 @@ NSString *SCBlockRuleFilterActionGetDescription(SCBlockRuleFilterAction action) 
 
 @implementation SCBlockRule
 
++ (instancetype)ruleWithHostname:(NSString *)hostname {
+    return [[SCBlockRule alloc] initWithHostname: hostname];
+}
+
 - (instancetype)initWithHostname:(NSString *)hostname {
     self = [super init];
     if (!self)

@@ -27,6 +27,7 @@ extern NSString *SCBlockRuleFilterActionGetDescription(SCBlockRuleFilterAction a
 @interface SCBlockRule : NSObject
 
 - (instancetype)initWithHostname:(NSString *)hostname;
++ (instancetype)ruleWithHostname:(NSString*) hostname;
 
 @property (nonatomic, readonly) NSString *hostname;
 

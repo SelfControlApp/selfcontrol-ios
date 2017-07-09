@@ -121,6 +121,22 @@ NS_ASSUME_NONNULL_BEGIN
     _blockRules = [blockRules copy];
 }
 
+- (void)addBlockRules:(NSArray<SCBlockRule*> *)blockRules {
+    NSMutableArray<SCBlockRule *> *blockRulesCopy = [_blockRules mutableCopy];
+    [blockRulesCopy addObjectsFromArray: blockRules];
+    self.blockRules = blockRulesCopy;
+}
+
+- (void)addBlockRule:(SCBlockRule*)blockRule {
+    [self addBlockRules: @[blockRule]];
+}
+
+- (void)removeBlockRuleAtIndex:(NSUInteger)index {
+    NSMutableArray<SCBlockRule *> *rulesCopy = [_blockRules mutableCopy];
+    [rulesCopy removeObjectAtIndex: index];
+    self.blockRules = rulesCopy;
+}
+
 - (BOOL)blockIsRunning {
     return (_blockEndDate.timeIntervalSinceNow > 0);
 }
@@ -135,7 +151,7 @@ NS_ASSUME_NONNULL_BEGIN
     
     NSMutableArray<SCBlockRule *> *blockRules = [NSMutableArray new];
     [rulesDictionary enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSDictionary *value, BOOL *stop) {
-        [blockRules addObject:[[SCBlockRule alloc] initWithHostname:key]];
+        [blockRules addObject:[SCBlockRule ruleWithHostname:key]];
     }];
     _blockRules = [blockRules copy];
 }

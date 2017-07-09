@@ -18,6 +18,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)startBlock:(completion)done;
 
+- (void)addBlockRules:(NSArray<SCBlockRule*> *)blockRules;
+- (void)addBlockRule:(SCBlockRule*)blockRule;
+- (void)removeBlockRuleAtIndex:(NSUInteger)index;
+
 @property (nonatomic, copy) NSArray<SCBlockRule *> *blockRules;
 @property (nonatomic, readonly) NSDate* blockEndDate;
 @property (nonatomic, readonly) BOOL blockIsRunning;

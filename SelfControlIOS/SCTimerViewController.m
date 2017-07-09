@@ -9,6 +9,7 @@
 #import "SCTimerViewController.h"
 #import "SCMainViewController.h"
 #import "SCBlockManager.h"
+#import "SCBlockRule.h"
 #import <Masonry/Masonry.h>
 
 @interface SCTimerViewController ()
@@ -69,7 +70,7 @@
     addSiteButton.titleLabel.font = [UIFont systemFontOfSize: 24.0];
     [addSiteButton setTitle: @"Add Site to Block List" forState: UIControlStateNormal];
     addSiteButton.backgroundColor = [UIColor blueColor];
-//    [addSiteButton addTarget: self action: @selector(addSite) forControlEvents: UIControlEventTouchUpInside];
+    [addSiteButton addTarget: self action: @selector(showAddSiteDialog) forControlEvents: UIControlEventTouchUpInside];
     [self.view addSubview: addSiteButton];
     [addSiteButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(extendBlockButton.mas_top);
@@ -128,6 +129,39 @@
             (unsigned long)hoursRemaining,
             (unsigned long)minutesRemaining,
             (unsigned long)secondsRemaining];
+}
+
+- (void) showAddSiteDialog {
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle: @"Add Site to Blocklist"
+                                                                   message: @"The new site will be inaccessible for the remainder of the current block."
+                                                            preferredStyle: UIAlertControllerStyleAlert];
+    
+    [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.keyboardType = UIKeyboardTypeURL;
+        textField.returnKeyType = UIReturnKeyDone;
+        textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+        textField.autocorrectionType = UITextAutocorrectionTypeNo;
+        textField.placeholder = @"example.com";
+        textField.adjustsFontSizeToFitWidth = YES;
+        
+        [textField mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(@25);
+        }];
+    }];
+    
+    UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
+                                                         handler:^(UIAlertAction * action) {}];
+    [alert addAction: cancelAction];
+    
+    UIAlertAction* addAction = [UIAlertAction actionWithTitle:@"Add" style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * action) {
+                                                              UITextField* textField = alert.textFields[0];
+                                                              [[SCBlockManager sharedManager] addBlockRule: [SCBlockRule ruleWithHostname: textField.text]];
+                                                              [self updateSitesBlockedLabel];
+                                                          }];
+    [alert addAction: addAction];
+    
+    [self presentViewController: alert animated: YES completion: nil];
 }
 
 - (void)didReceiveMemoryWarning {
