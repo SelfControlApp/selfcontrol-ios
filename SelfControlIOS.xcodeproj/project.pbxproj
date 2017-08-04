@@ -884,7 +884,6 @@
 				CODE_SIGN_ENTITLEMENTS = SCFilterDataProvider/SCFilterDataProvider.entitlements;
 				DEVELOPMENT_TEAM = L6W5L88KN7;
 				INFOPLIST_FILE = SCFilterDataProvider/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.selfcontrolapp.SelfControlIOS.SCFilterDataProvider;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -907,7 +906,6 @@
 				CODE_SIGN_ENTITLEMENTS = SCFilterDataProvider/SCFilterDataProvider.entitlements;
 				DEVELOPMENT_TEAM = L6W5L88KN7;
 				INFOPLIST_FILE = SCFilterDataProvider/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.selfcontrolapp.SelfControlIOS.SCFilterDataProvider;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1003,7 +1001,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE_SPECIFIER = "2995c6cf-4d42-4367-a9aa-265f5a8447c9";
@@ -1050,7 +1048,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PROVISIONING_PROFILE_SPECIFIER = "2995c6cf-4d42-4367-a9aa-265f5a8447c9";
 				SDKROOT = iphoneos;
