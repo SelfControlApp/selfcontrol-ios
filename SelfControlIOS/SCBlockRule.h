@@ -29,7 +29,12 @@ extern NSString *SCBlockRuleFilterActionGetDescription(SCBlockRuleFilterAction a
 - (instancetype)initWithHostname:(NSString *)hostname;
 + (instancetype)ruleWithHostname:(NSString*) hostname;
 
++ (instancetype)ruleWithAppDict:(NSDictionary *)appDict;
+- (instancetype)initWithAppDict:(NSDictionary *)appDict;
+
+@property (nonatomic, readonly) NSString* type;
 @property (nonatomic, readonly) NSString *hostname;
+@property (nonatomic, readonly) NSDictionary* appDict;
 
 - (NSDictionary *)filterRuleDictionary;
 

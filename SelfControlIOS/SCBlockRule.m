@@ -36,6 +36,22 @@ NSString *SCBlockRuleFilterActionGetDescription(SCBlockRuleFilterAction action) 
         return nil;
     
     _hostname = [hostname copy];
+    _type = @"hostname";
+    
+    return self;
+}
+
++ (instancetype)ruleWithAppDict:(NSDictionary *)appDict {
+    return [[SCBlockRule alloc] initWithAppDict: appDict];
+}
+
+- (instancetype)initWithAppDict:(NSDictionary *)appDict {
+    self = [super init];
+    if (!self)
+        return nil;
+    
+    _appDict = [appDict copy];
+    _type = @"app";
     
     return self;
 }
@@ -43,7 +59,9 @@ NSString *SCBlockRuleFilterActionGetDescription(SCBlockRuleFilterAction action) 
 - (NSDictionary *)filterRuleDictionary {
     return @{
             @"kRule": @(SCBlockRuleFilterActionBlock),
-            @"kRemediationKey": @"Remediate1"
+            @"kRemediationKey": @"Remediate1",
+            @"type": self.type,
+            @"appDict": self.appDict
             };
 
 }

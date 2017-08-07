@@ -52,6 +52,9 @@ open class FilterUtilities: NSObject {
         
         // now see if we have a rule for the stripped domain...
         var ruleObj = rules.object(forKey: adjustedHostname) as? [String: AnyObject]
+        if ruleObj != nil && !(ruleObj!["type"]?.isEqual(to: "hostname"))! {
+            ruleObj = nil;
+        }
         if (ruleObj != nil) {
             return ruleObj
         }
@@ -113,11 +116,23 @@ open class FilterUtilities: NSObject {
         
         return ruleObj
     }
+
+    open class func getAppRuleObj(_ sourceAppIdentifier: String) -> [String: AnyObject]? {
+        let rules = (defaults?.object(forKey: "rules") as AnyObject)
+        var ruleObj = rules.object(forKey: sourceAppIdentifier) as? [String: AnyObject]
+        if ruleObj != nil && !(ruleObj!["type"]?.isEqual(to: "app"))! {
+            ruleObj = nil;
+        }
+        
+        return ruleObj
+    }
     
 	/// Get rule parameters for a flow from the SimpleTunnel user defaults.
 	open class func getRule(_ flow: NEFilterFlow) -> (SCBlockRuleFilterAction, String, [String: AnyObject]) {
 		let hostname = FilterUtilities.getFlowHostname(flow)
-        NSLog("Finding rule for hostname %@", hostname);
+        let sourceAppId = FilterUtilities.getFlowSourceAppId(flow)
+        let blockIdent = hostname.isEmpty ? sourceAppId : hostname;
+        NSLog("Finding rule for hostname %@ from app %@", hostname, sourceAppId);
     
         let blockEndDate = defaults?.object(forKey: "blockEndDate") as? Date
         if (blockEndDate == nil || blockEndDate! < Date()) {
@@ -127,21 +142,33 @@ open class FilterUtilities: NSObject {
                 NSLog("*** Block is over! Removing object")
                 defaults?.removeObject(forKey: "blockEndDate")
             } else { NSLog("Allow all, no block.") }
-            return (.allow, hostname, [: ])
+            return (.allow, blockIdent, [: ])
         }
         
-		guard !hostname.isEmpty else { return (.allow, hostname, [:]) }
-
-		guard let hostNameRule = getHostnameRuleObj(hostname) else {
-			NSLog("\(hostname) is set for NO RULES")
-			return (.allow, hostname, [:])
-		}
-
-		guard let ruleTypeInt = hostNameRule["kRule"] as? Int,
+        var blockRule: [String: AnyObject]? = nil;
+        
+        // check app-based rules first
+        if (!sourceAppId.isEmpty) {
+            blockRule = getAppRuleObj(sourceAppId);
+        }
+        
+        // then try hostname-based rules
+        if blockRule == nil {
+            guard !hostname.isEmpty else { return (.allow, blockIdent, [:]) }
+            
+            blockRule = getHostnameRuleObj(hostname);
+        }
+        
+        if blockRule == nil {
+            NSLog("\(hostname) is set for NO RULES")
+            return (.allow, blockIdent, [:]);
+        }
+		
+		guard let ruleTypeInt = blockRule!["kRule"] as? Int,
 			let ruleType = SCBlockRuleFilterAction(rawValue: ruleTypeInt)
-			else { return (.allow, hostname, [:]) }
+			else { return (.allow, blockIdent, [:]) }
 
-		return (ruleType, hostname, hostNameRule)
+		return (ruleType, blockIdent, blockRule!)
 	}
 
 	/// Get the hostname from a browser flow.
@@ -153,6 +180,18 @@ open class FilterUtilities: NSObject {
 			else { return "" }
 		return hostname
 	}
+
+    /// Get the source app ID from a filter flow.
+    open class func getFlowSourceAppId(_ flow: NEFilterFlow) -> String {
+        if flow.sourceAppIdentifier == nil {
+            return "";
+        }
+
+        var bundleIdComponents = flow.sourceAppIdentifier!.components(separatedBy: ".");
+        bundleIdComponents.removeFirst();
+    
+        return bundleIdComponents.joined(separator: ".");
+    }
 
 	/// Download a fresh set of rules from the rules server.
 	open class func fetchRulesFromServer(_ serverAddress: String?) {

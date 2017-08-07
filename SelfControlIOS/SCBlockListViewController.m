@@ -10,6 +10,7 @@
 #import "SCBlockManager.h"
 #import "SCBlockRuleTableViewCell.h"
 #import "SCImportSitesViewController.h"
+#import "SCAddAppViewController.h"
 
 typedef NS_ENUM(NSInteger, SCBlockListSection) {
     SCBlockListSectionButtons = 0,
@@ -49,7 +50,7 @@ static NSString * const SCBlockListSiteCellIdentifier = @"SiteCell";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == SCBlockListSectionButtons) {
-        return 2;
+        return 3;
     } else if (section == SCBlockListSectionSites) {
         return [[SCBlockManager sharedManager] blockRules].count;
     }
@@ -64,8 +65,10 @@ static NSString * const SCBlockListSiteCellIdentifier = @"SiteCell";
         cell.textLabel.textColor = self.view.tintColor;
 
         if (indexPath.row == 0) {
-            cell.textLabel.text = @"Add New Site";
+            cell.textLabel.text = @"Add New Website";
         } else if (indexPath.row == 1) {
+            cell.textLabel.text = @"Add New App";
+        } else if (indexPath.row == 2) {
             cell.textLabel.text = @"Import Common Sites";
         }
         return cell;
@@ -75,7 +78,19 @@ static NSString * const SCBlockListSiteCellIdentifier = @"SiteCell";
         SCBlockRule *rule = [[[SCBlockManager sharedManager] blockRules] objectAtIndex:indexPath.row];
         cell.delegate = self;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.textField.text = rule.hostname;
+        
+        NSLog(@"creating cell for rule %@ with appDict %@", rule, rule.appDict);
+        if ([rule.type isEqualToString: @"hostname"]) {
+            cell.textField.text = rule.hostname;
+            cell.textField.textColor = UIColor.blackColor;
+            cell.textField.userInteractionEnabled = YES;
+        } else if ([rule.type isEqualToString: @"app"]) {
+            cell.textField.text = rule.appDict[@"name"];
+            NSLog(@"setting text to %@", rule.appDict[@"name"]);
+            cell.textField.textColor = self.view.tintColor;
+            cell.textField.userInteractionEnabled = NO;
+        }
+
         return cell;
     }
     
@@ -89,7 +104,7 @@ static NSString * const SCBlockListSiteCellIdentifier = @"SiteCell";
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == SCBlockListSectionButtons)
         return UITableViewCellEditingStyleNone;
-    
+
     return UITableViewCellEditingStyleDelete;
 }
 
@@ -113,7 +128,7 @@ static NSString * const SCBlockListSiteCellIdentifier = @"SiteCell";
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     if (indexPath.row == 0) {
-        // "Add New Site" button
+        // "Add New Website" button
         [[SCBlockManager sharedManager] addBlockRule: [SCBlockRule ruleWithHostname: @""]];
         
         NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:([SCBlockManager sharedManager].blockRules.count - 1) inSection:SCBlockListSectionSites];
@@ -125,6 +140,11 @@ static NSString * const SCBlockListSiteCellIdentifier = @"SiteCell";
         });
         
     } else if (indexPath.row == 1) {
+        // add app
+        SCAddAppViewController* addAppVC = [SCAddAppViewController new];
+        addAppVC.blockListViewController = self;
+        [self.navigationController pushViewController: addAppVC animated: YES];
+    } else if (indexPath.row == 2) {
         // import common sites
         SCImportSitesViewController* importSitesVC = [SCImportSitesViewController new];
         importSitesVC.blockListViewController = self;
@@ -155,9 +175,9 @@ static NSString * const SCBlockListSiteCellIdentifier = @"SiteCell";
 
 # pragma mark - Other methods
 
-- (void)addSitesToList:(NSArray<SCBlockRule*>*)newBlockRules {
-    NSArray<SCBlockRule *> *blockRules = [SCBlockManager sharedManager].blockRules;
+- (void)addRulesToList:(NSArray<SCBlockRule*>*)newBlockRules {
     [[SCBlockManager sharedManager] addBlockRules: newBlockRules];
+    NSArray<SCBlockRule *> *blockRules = [SCBlockManager sharedManager].blockRules;
 
     NSMutableArray* indexPaths = [NSMutableArray array];
     for (unsigned long i = blockRules.count - newBlockRules.count; i < blockRules.count; i++) {

@@ -114,7 +114,16 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setBlockRules:(NSArray<SCBlockRule *> *)blockRules {
     NSMutableDictionary<NSString *, NSDictionary *> *rulesDictionary = [NSMutableDictionary new];
     [blockRules enumerateObjectsUsingBlock:^(SCBlockRule *blockRule, NSUInteger index, BOOL *stop) {
-        [rulesDictionary setObject:[blockRule filterRuleDictionary] forKey:blockRule.hostname];
+        NSString* ruleKey;
+        if ([blockRule.type isEqualToString: @"hostname"]) {
+            ruleKey = blockRule.hostname;
+        } else if ([blockRule.type isEqualToString: @"app"]) {
+            ruleKey = blockRule.appDict[@"bundleId"];
+        }
+        
+        if (ruleKey != nil) {
+            [rulesDictionary setObject:[blockRule filterRuleDictionary] forKey: ruleKey];
+        }
     }];
     [[FilterUtilities defaults] setObject:rulesDictionary forKey:@"rules"];
 
@@ -151,7 +160,11 @@ NS_ASSUME_NONNULL_BEGIN
     
     NSMutableArray<SCBlockRule *> *blockRules = [NSMutableArray new];
     [rulesDictionary enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSDictionary *value, BOOL *stop) {
-        [blockRules addObject:[SCBlockRule ruleWithHostname:key]];
+        if ([value[@"type"] isEqualToString: @"app"]) {
+            [blockRules addObject:[SCBlockRule ruleWithAppDict: value[@"appDict"]]];
+        } else if ([value[@"type"] isEqualToString: @"hostname"]) {
+            [blockRules addObject:[SCBlockRule ruleWithHostname:key]];
+        }
     }];
     _blockRules = [blockRules copy];
 }

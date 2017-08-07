@@ -11,6 +11,6 @@
 
 @interface SCBlockListViewController : UITableViewController
 
-- (void)addSitesToList:(NSArray<SCBlockRule*>*)sites;
+- (void)addRulesToList:(NSArray<SCBlockRule*>*)rules;
 
 @end
