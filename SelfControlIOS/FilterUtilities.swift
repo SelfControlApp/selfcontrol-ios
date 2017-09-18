@@ -198,7 +198,7 @@ open class FilterUtilities: NSObject {
 		NSLog("fetch rules called")
 
 		guard serverAddress != nil else { return }
-		NSLog("Fetching rules from \(serverAddress)")
+        NSLog("Fetching rules from \(String(describing: serverAddress))")
 
 		guard let infoURL = URL(string: "http://\(serverAddress!)/rules/") else { return }
 		NSLog("Rules url is \(infoURL)")

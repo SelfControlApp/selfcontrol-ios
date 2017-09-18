@@ -96,7 +96,7 @@
 }
 
 - (void)updateSitesBlockedLabel {
-    self.sitesBlockedLabel.text = [NSString stringWithFormat: @"Blocking %lu sites", (unsigned long)[SCBlockManager sharedManager].blockRules.count];
+    self.sitesBlockedLabel.text = [NSString stringWithFormat: @"Blocking %lu apps and %lu hosts", (unsigned long)[SCBlockManager sharedManager].appBlockRules.count, (unsigned long)[SCBlockManager sharedManager].hostBlockRules.count];
 }
 
 - (void)updateTimerLabel {
@@ -156,7 +156,7 @@
     UIAlertAction* addAction = [UIAlertAction actionWithTitle:@"Add" style:UIAlertActionStyleDefault
                                                           handler:^(UIAlertAction * action) {
                                                               UITextField* textField = alert.textFields[0];
-                                                              [[SCBlockManager sharedManager] addBlockRule: [SCBlockRule ruleWithHostname: textField.text]];
+                                                              [[SCBlockManager sharedManager] addBlockRule: [SCBlockRule ruleWithHostname: textField.text] type: SCBlockTypeHost];
                                                               [self updateSitesBlockedLabel];
                                                           }];
     [alert addAction: addAction];

@@ -143,7 +143,7 @@ static NSArray* SCBlockableApps = nil;
     
     SCBlockRule* rule = [SCBlockRule ruleWithAppDict: appDict];
 
-    [blockListViewController addRulesToList: @[rule]];
+    [blockListViewController addRulesToList: @[rule] type: SCBlockTypeApp];
 
     [self.navigationController popViewControllerAnimated: YES];
 }

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "SCBlockListViewController.h"
+#import "SCBlockManager.h"
 
 @interface SCAddAppViewController : UITableViewController
 

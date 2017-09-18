@@ -111,39 +111,68 @@ NS_ASSUME_NONNULL_BEGIN
     [[FilterUtilities defaults] setObject: blockEndDate forKey: @"blockEndDate"];
 }
 
-- (void)setBlockRules:(NSArray<SCBlockRule *> *)blockRules {
+- (void)updateFilterRules {
     NSMutableDictionary<NSString *, NSDictionary *> *rulesDictionary = [NSMutableDictionary new];
-    [blockRules enumerateObjectsUsingBlock:^(SCBlockRule *blockRule, NSUInteger index, BOOL *stop) {
-        NSString* ruleKey;
-        if ([blockRule.type isEqualToString: @"hostname"]) {
-            ruleKey = blockRule.hostname;
-        } else if ([blockRule.type isEqualToString: @"app"]) {
-            ruleKey = blockRule.appDict[@"bundleId"];
+    [self.appBlockRules enumerateObjectsUsingBlock:^(SCBlockRule *blockRule, NSUInteger index, BOOL *stop) {
+        NSString* ruleKey = blockRule.appDict[@"bundleId"];
+        if (ruleKey != nil) {
+            [rulesDictionary setObject:[blockRule filterRuleDictionary] forKey: ruleKey];
         }
-        
+    }];
+    [self.hostBlockRules enumerateObjectsUsingBlock:^(SCBlockRule *blockRule, NSUInteger index, BOOL *stop) {
+        NSString* ruleKey = blockRule.hostname;
         if (ruleKey != nil) {
             [rulesDictionary setObject:[blockRule filterRuleDictionary] forKey: ruleKey];
         }
     }];
     [[FilterUtilities defaults] setObject:rulesDictionary forKey:@"rules"];
-
-    _blockRules = [blockRules copy];
 }
 
-- (void)addBlockRules:(NSArray<SCBlockRule*> *)blockRules {
-    NSMutableArray<SCBlockRule *> *blockRulesCopy = [_blockRules mutableCopy];
+- (void)addBlockRules:(NSArray<SCBlockRule*> *)blockRules type:(SCBlockType)type {
+    NSArray<SCBlockRule*>* blockRulesOriginal = [self blockRulesOfType: type];
+    NSMutableArray<SCBlockRule *> *blockRulesCopy = [blockRulesOriginal mutableCopy];
+
     [blockRulesCopy addObjectsFromArray: blockRules];
-    self.blockRules = blockRulesCopy;
+    
+    [self setBlockRules: blockRulesCopy type: type];
 }
 
-- (void)addBlockRule:(SCBlockRule*)blockRule {
-    [self addBlockRules: @[blockRule]];
+- (void)addBlockRule:(SCBlockRule*)blockRule type:(SCBlockType)type {
+    [self addBlockRules: @[blockRule] type: type];
 }
 
-- (void)removeBlockRuleAtIndex:(NSUInteger)index {
-    NSMutableArray<SCBlockRule *> *rulesCopy = [_blockRules mutableCopy];
+- (void)removeBlockRuleAtIndex:(NSUInteger)index type:(SCBlockType)type {
+    NSArray<SCBlockRule*>* rulesOriginal = [self blockRulesOfType: type];
+    NSMutableArray<SCBlockRule *> *rulesCopy = [rulesOriginal mutableCopy];
+
     [rulesCopy removeObjectAtIndex: index];
-    self.blockRules = rulesCopy;
+
+    [self setBlockRules: rulesCopy type: type];
+}
+
+- (NSArray<SCBlockRule *>*)blockRulesOfType:(SCBlockType)type {
+    if (type == SCBlockTypeApp) {
+        return self.appBlockRules;
+    } else {
+        return self.hostBlockRules;
+    }
+}
+
+- (void)setBlockRules:(NSArray<SCBlockRule *>*)blockRules type:(SCBlockType)type {
+    if (type == SCBlockTypeApp) {
+        self.appBlockRules = blockRules;
+    } else {
+        self.hostBlockRules = blockRules;
+    }
+}
+
+- (void)setAppBlockRules:(NSArray<SCBlockRule *> *)appBlockRules {
+    _appBlockRules = appBlockRules;
+    [self updateFilterRules];
+}
+- (void)setHostBlockRules:(NSArray<SCBlockRule *> *)hostBlockRules {
+    _hostBlockRules = hostBlockRules;
+    [self updateFilterRules];
 }
 
 - (BOOL)blockIsRunning {
@@ -154,19 +183,23 @@ NS_ASSUME_NONNULL_BEGIN
     NSDictionary *rulesDictionary = [[FilterUtilities defaults] objectForKey:@"rules"];
     if (!rulesDictionary) {
         // no dictionary, make sure we set a blank array to avoid a crash if blockRules is nil
-        _blockRules = [NSArray array];
+        self.appBlockRules = [NSArray array];
+        self.hostBlockRules = [NSArray array];
         return;
     }
     
-    NSMutableArray<SCBlockRule *> *blockRules = [NSMutableArray new];
+    NSMutableArray<SCBlockRule *> *newAppBlockRules = [NSMutableArray new];
+    NSMutableArray<SCBlockRule *> *newHostBlockRules = [NSMutableArray new];
     [rulesDictionary enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSDictionary *value, BOOL *stop) {
         if ([value[@"type"] isEqualToString: @"app"]) {
-            [blockRules addObject:[SCBlockRule ruleWithAppDict: value[@"appDict"]]];
+            [newAppBlockRules addObject:[SCBlockRule ruleWithAppDict: value[@"appDict"]]];
         } else if ([value[@"type"] isEqualToString: @"hostname"]) {
-            [blockRules addObject:[SCBlockRule ruleWithHostname:key]];
+            [newHostBlockRules addObject:[SCBlockRule ruleWithHostname:key]];
         }
     }];
-    _blockRules = [blockRules copy];
+
+    _appBlockRules = [newAppBlockRules copy];
+    _hostBlockRules = [newHostBlockRules copy];
 }
 
 @end

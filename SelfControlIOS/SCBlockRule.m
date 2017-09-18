@@ -37,6 +37,7 @@ NSString *SCBlockRuleFilterActionGetDescription(SCBlockRuleFilterAction action) 
     
     _hostname = [hostname copy];
     _type = @"hostname";
+    _appDict = [NSDictionary dictionary];
     
     return self;
 }
@@ -63,7 +64,6 @@ NSString *SCBlockRuleFilterActionGetDescription(SCBlockRuleFilterAction action) 
             @"type": self.type,
             @"appDict": self.appDict
             };
-
 }
 
 @end

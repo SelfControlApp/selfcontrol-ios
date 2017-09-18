@@ -22,6 +22,11 @@ typedef NS_ENUM(NSInteger, SCBlockRuleFilterAction) {
     SCBlockRuleFilterActionRemediate
 };
 
+typedef NS_ENUM(NSInteger, SCBlockType) {
+    SCBlockTypeApp,
+    SCBlockTypeHost
+};
+
 extern NSString *SCBlockRuleFilterActionGetDescription(SCBlockRuleFilterAction action);
 
 @interface SCBlockRule : NSObject

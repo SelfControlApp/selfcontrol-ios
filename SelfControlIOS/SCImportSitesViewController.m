@@ -130,7 +130,7 @@ static NSArray* SCSiteImportSets = nil;
         [rules addObject: [SCBlockRule ruleWithHostname: sites[i]]];
     }
     
-    [blockListViewController addRulesToList: rules];
+    [blockListViewController addRulesToList: rules type: SCBlockTypeHost];
     
     [self.navigationController popViewControllerAnimated: YES];
 }

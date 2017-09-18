@@ -8,7 +8,7 @@
 
 #import "SCBlockRule.h"
 
-typedef void(^completion)(NSError*);
+typedef void(^completion)(NSError* _Nonnull);
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -18,11 +18,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)startBlock:(completion)done;
 
-- (void)addBlockRules:(NSArray<SCBlockRule*> *)blockRules;
-- (void)addBlockRule:(SCBlockRule*)blockRule;
-- (void)removeBlockRuleAtIndex:(NSUInteger)index;
+- (void)addBlockRules:(NSArray<SCBlockRule*> *)blockRules type:(SCBlockType)type;
+- (void)addBlockRule:(SCBlockRule*)blockRule type:(SCBlockType)type;
+- (void)removeBlockRuleAtIndex:(NSUInteger)index type:(SCBlockType)type;
+- (NSArray<SCBlockRule *>*)blockRulesOfType:(SCBlockType)type;
+- (void)setBlockRules:(NSArray<SCBlockRule *>*)blockRules type:(SCBlockType)type;
 
-@property (nonatomic, copy) NSArray<SCBlockRule *> *blockRules;
+@property (nonatomic, copy) NSArray<SCBlockRule *> *appBlockRules;
+@property (nonatomic, copy) NSArray<SCBlockRule *> *hostBlockRules;
 @property (nonatomic, readonly) NSDate* blockEndDate;
 @property (nonatomic, readonly) BOOL blockIsRunning;
 
