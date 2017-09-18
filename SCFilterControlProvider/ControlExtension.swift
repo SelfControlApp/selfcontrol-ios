@@ -80,11 +80,11 @@ class ControlExtension : NEFilterControlProvider {
 
 		switch ruleType {
 			case .needMoreRulesAndAllow:
-				NSLog("\(hostname) is set to be Allowed")
+				NSLog("\(hostname) is set to be Allowed (handling new flow in control extension)")
 				controlVerdict = NEFilterControlVerdict.allow(withUpdateRules: false)
 
 			case .needMoreRulesAndBlock:
-				NSLog("\(hostname) is set to be blocked")
+				NSLog("\(hostname) is set to be Blocked (handling new flow in control extension)")
 				controlVerdict = NEFilterControlVerdict.drop(withUpdateRules: false)
 			
 			default:

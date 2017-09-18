@@ -41,7 +41,7 @@ class DataExtension: NEFilterDataProvider {
         
 		switch ruleType {
 			case .block:
-				NSLog("\(hostname) is set to be blocked")
+				NSLog("\(hostname) is set to be blocked (handling new flow in data extension)")
 				result = NEFilterNewFlowVerdict.drop()
 
 			case .remediate:
@@ -75,6 +75,8 @@ class DataExtension: NEFilterDataProvider {
 			default:
 				NSLog("rule number \(ruleType) doesn't match with the current ruleset")
 		}
+        
+        NSLog("about to return \(result)");
 
 		return result
 
@@ -90,7 +92,8 @@ class DataExtension: NEFilterDataProvider {
 
 		switch ruleType {
 			case .block:
-				NSLog("\(hostname) is set to be blocked")
+				NSLog("\(hostname) is set to be blocked (handling inbound data in data extension)")
+                result = NEFilterDataVerdict.drop()
 
 			case .needMoreRulesAndBlock:
 				NSLog("\(hostname) is set to need rules and blocked")
@@ -151,7 +154,8 @@ class DataExtension: NEFilterDataProvider {
 
 		switch ruleType {
 			case .block:
-				NSLog("\(hostname) is set to be blocked")
+				NSLog("\(hostname) is set to be blocked (handling inbound data complete in data extension)")
+                result = NEFilterDataVerdict.drop()
 
 			case .needMoreRulesAndBlock:
 				NSLog("\(hostname) is set to need rules and blocked")
@@ -198,7 +202,8 @@ class DataExtension: NEFilterDataProvider {
 
 		switch ruleType {
 			case .block:
-				NSLog("\(hostname) is set to be blocked")
+				NSLog("\(hostname) is set to be blocked (handling outbound data in data extension)")
+                result = NEFilterDataVerdict.drop()
 			case .needMoreRulesAndBlock:
 				NSLog("\(hostname) is set to need rules and blocked")
 
@@ -259,7 +264,8 @@ class DataExtension: NEFilterDataProvider {
 
 		switch ruleType {
 			case .block:
-				NSLog("\(hostname) is set to be blocked")
+				NSLog("\(hostname) is set to be blocked (handling outbound data complete in data extension)")
+                result = NEFilterDataVerdict.drop()
 
 			case .needMoreRulesAndBlock:
 				NSLog("\(hostname) is set to need rules and blocked")

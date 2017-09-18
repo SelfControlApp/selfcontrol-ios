@@ -173,12 +173,16 @@ open class FilterUtilities: NSObject {
 
 	/// Get the hostname from a browser flow.
 	open class func getFlowHostname(_ flow: NEFilterFlow) -> String {
-		guard let browserFlow : NEFilterBrowserFlow = flow as? NEFilterBrowserFlow,
-			let url = browserFlow.url,
-			let hostname = url.host
-			, flow is NEFilterBrowserFlow
-			else { return "" }
-		return hostname
+        // if it's got an HTTP URL, great! return the hostname from that
+        if (flow.url != nil && flow.url!.host != nil) {
+            return flow.url!.host!;
+        }
+        
+        // otherwise we can try to grab it from an NEFilterSocketFlow's remoteEndpoint (unfortunately this is generally an IP address)
+        guard let socketFlow:NEFilterSocketFlow = flow as? NEFilterSocketFlow,
+            let hostEndpoint:NWHostEndpoint = socketFlow.remoteEndpoint as? NWHostEndpoint
+            else { return "" }
+        return hostEndpoint.hostname;
 	}
 
     /// Get the source app ID from a filter flow.
