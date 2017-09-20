@@ -36,7 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     // initialize blockEndDate from defaults
     _blockEndDate = [[FilterUtilities defaults] objectForKey:@"blockEndDate"];
-    
+
     // reloadRules will make sure self.blockRules is initialized
     [self reloadRules];
     

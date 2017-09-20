@@ -137,11 +137,10 @@ open class FilterUtilities: NSObject {
         let blockEndDate = defaults?.object(forKey: "blockEndDate") as? Date
         if (blockEndDate == nil || blockEndDate! < Date()) {
             // block is over or not started, so always return allow!
-            // and clear any cruft left in the blockEndDate field
-            if (blockEndDate != nil) {
-                NSLog("*** Block is over! Removing object")
-                defaults?.removeObject(forKey: "blockEndDate")
-            } else { NSLog("Allow all, no block.") }
+            // NOTE: don't try to clear the blockEndDate field, because
+            // we don't have permissions to write to defaults and it seems
+            // to break reading after that too
+            NSLog("Allow all, no block. blockEndDate was nil or in the past");
             return (.allow, blockIdent, [: ])
         }
         
