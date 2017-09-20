@@ -66,13 +66,16 @@ static NSString * const SCBlockListAppCellIdentifier = @"AppCell";
 - (NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     switch (section) {
         case SCBlockListSectionHosts:
+            if ([SCBlockManager sharedManager].hostBlockRules.count) {
                 return @"Block access to these websites:";
+            }
         case SCBlockListSectionApps:
-            return @"Block network connection for these apps:";
-            
-        default:
-            return nil;
+            if ([SCBlockManager sharedManager].appBlockRules.count) {
+                return @"Block network connection for these apps:";
+            }
     }
+    
+    return nil;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

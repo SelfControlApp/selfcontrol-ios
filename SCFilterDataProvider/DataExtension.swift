@@ -32,7 +32,7 @@ class DataExtension: NEFilterDataProvider {
 
 		// Look for a matching rule in the current set of rules.
 		let (ruleType, hostname, hostNameRule) = FilterUtilities.getRule(flow)
-        
+
         // ignore blank rules if they happen to slip in
         let trimmedHostname = hostname.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
         if (trimmedHostname.characters.count < 1) {
@@ -75,9 +75,7 @@ class DataExtension: NEFilterDataProvider {
 			default:
 				NSLog("rule number \(ruleType) doesn't match with the current ruleset")
 		}
-        
-        NSLog("about to return \(result)");
-
+    
 		return result
 
 	}

@@ -96,7 +96,7 @@
 }
 
 - (void)updateSitesBlockedLabel {
-    self.sitesBlockedLabel.text = [NSString stringWithFormat: @"Blocking %lu apps and %lu hosts", (unsigned long)[SCBlockManager sharedManager].appBlockRules.count, (unsigned long)[SCBlockManager sharedManager].hostBlockRules.count];
+    self.sitesBlockedLabel.text = [NSString stringWithFormat: @"Blocking %lu apps and %lu sites", (unsigned long)[SCBlockManager sharedManager].appBlockRules.count, (unsigned long)[SCBlockManager sharedManager].hostBlockRules.count];
 }
 
 - (void)updateTimerLabel {
