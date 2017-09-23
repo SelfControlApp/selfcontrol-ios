@@ -24,7 +24,7 @@ static NSArray* SCSiteImportSets = nil;
 - (instancetype)init {
     SCSiteImportSets = @[
                          @{
-                             @"name": @"Common Distracting Sites",
+                             @"name": NSLocalizedString(@"Common Distracting Sites", nil),
                              @"items": @[
                                      @"facebook.com",
                                      @"twitter.com",
@@ -44,7 +44,7 @@ static NSArray* SCSiteImportSets = nil;
                                      ]
                              },
                          @{
-                             @"name": @"News & Publications",
+                             @"name": NSLocalizedString(@"News & Publications", nil),
                              @"items": @[
                                      @"cnn.com",
                                      @"huffingtonpost.com",
@@ -117,13 +117,9 @@ static NSArray* SCSiteImportSets = nil;
 #pragma mark - UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"Did select row at index path %@", indexPath);
-    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     NSArray* sites = [[SCSiteImportSets objectAtIndex: indexPath.row] objectForKey: @"items"];
-    
-    NSLog(@"should add sites: %@", sites);
     
     NSMutableArray* rules = [NSMutableArray array];
     for (unsigned long i = 0; i < sites.count; i++) {

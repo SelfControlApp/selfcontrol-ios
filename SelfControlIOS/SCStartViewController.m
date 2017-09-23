@@ -38,7 +38,7 @@
     }];
 
     UILabel* focusForLabel = [UILabel new];
-    focusForLabel.text = @"I want to focus for...";
+    focusForLabel.text = NSLocalizedString(@"I want to focus for...", nil);
     [self.view addSubview: focusForLabel];
     [focusForLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(logoView.mas_bottom).with.offset(15);
@@ -82,7 +82,7 @@
     [self updateSitesBlockedLabel];
     
     UIButton *editBlockListButton = [UIButton buttonWithType: UIButtonTypeSystem];
-    [editBlockListButton setTitle: @"Edit Block List" forState: UIControlStateNormal];
+    [editBlockListButton setTitle: NSLocalizedString(@"Edit Block List", nil) forState: UIControlStateNormal];
     [editBlockListButton addTarget: self action: @selector(editBlockList) forControlEvents: UIControlEventTouchUpInside];
     [self.view addSubview: editBlockListButton];
     [editBlockListButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -92,7 +92,7 @@
     
     UIButton* startBlockButton = [UIButton buttonWithType: UIButtonTypeSystem];
     startBlockButton.titleLabel.font = [UIFont systemFontOfSize: 24.0];
-    [startBlockButton setTitle: @"Start Block" forState: UIControlStateNormal];
+    [startBlockButton setTitle: NSLocalizedString(@"Start Block", nil) forState: UIControlStateNormal];
     startBlockButton.backgroundColor = [UIColor blueColor];
     [startBlockButton addTarget: self action: @selector(startBlockButtonPressed) forControlEvents: UIControlEventTouchUpInside];
     [self.view addSubview: startBlockButton];
@@ -123,7 +123,33 @@
 }
 
 - (void)updateSitesBlockedLabel {
-    self.sitesBlockedLabel.text = [NSString stringWithFormat: @"%lu apps and %lu sites will be blocked.", (unsigned long)[SCBlockManager sharedManager].appBlockRules.count, (unsigned long)[SCBlockManager sharedManager].hostBlockRules.count];
+    NSInteger appsBlocked = [SCBlockManager sharedManager].appBlockRules.count;
+    NSInteger sitesBlocked = [SCBlockManager sharedManager].hostBlockRules.count;
+    
+    if (!appsBlocked && !sitesBlocked) {
+        self.sitesBlockedLabel.text = NSLocalizedString(@"Your block list is empty.", nil);
+    } else {
+        self.sitesBlockedLabel.text = [NSString stringWithFormat: NSLocalizedString(@"%@ will be blocked.", @"{blocked items} will be blocked."), [self blockListSummaryString]];
+    }
+}
+
+- (NSString*)blockListSummaryString {
+    NSInteger appsBlocked = [SCBlockManager sharedManager].appBlockRules.count;
+    NSInteger sitesBlocked = [SCBlockManager sharedManager].hostBlockRules.count;
+
+    NSString* appsString = [NSString localizedStringWithFormat: NSLocalizedString(@"%lu app(s)", @"%{number of blocked apps} app(s)"), (unsigned long)appsBlocked];
+    NSString* sitesString = [NSString localizedStringWithFormat: NSLocalizedString(@"%lu site(s)", @"{number of blocked sites} site(s)"), (unsigned long)sitesBlocked];
+    
+    if (!appsBlocked && !sitesBlocked) {
+        return NSLocalizedString(@"Nothing", nil);
+    } else if (appsBlocked && sitesBlocked) {
+        return [NSString localizedStringWithFormat: NSLocalizedString(@"%@ and %@", @"{num blocked apps} apps and {num blocked sites} sites"), appsString, sitesString];
+    } else if (appsBlocked) {
+        return appsString;
+    } else {
+        // only sitesBlocked
+        return sitesString;
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -146,9 +172,17 @@
 }
 
 - (void)startBlockButtonPressed {
-    NSString* confirmText = [NSString stringWithFormat: @"Are you sure you want to start the block? %lu apps and %lu sites will be blocked for %@.", (unsigned long)[SCBlockManager sharedManager].appBlockRules.count, (unsigned long)[SCBlockManager sharedManager].hostBlockRules.count, self.humanReadableBlockTime];
+    if ([SCBlockManager sharedManager].appBlockRules.count == 0 && [SCBlockManager sharedManager].hostBlockRules.count == 0) {
+        // we aren't going to run a block with nothing in the blocklist! that's just silly
+        [SCAlertFactory showAlertWithTitle: NSLocalizedString(@"No rules in block list", nil)
+                               description: NSLocalizedString(@"Your block list is currently empty. To start a block, first add some apps or sites into your block list.", nil)
+                            viewController: self];
+        return;
+    }
+
+    NSString* confirmText = [NSString localizedStringWithFormat: NSLocalizedString(@"Are you sure you want to start the block? %@ will be blocked for %@.", @"Are you sure you want to start the block? {blocked things} will be blocked for {block duration}"), [self blockListSummaryString], self.humanReadableBlockTime];
     
-    [SCAlertFactory showConfirmationDialogWithTitle: @"Confirm Block"
+    [SCAlertFactory showConfirmationDialogWithTitle: NSLocalizedString(@"Confirm Block", nil)
                                         description: confirmText
                                       confirmAction:^{
                                           [self startBlock];
@@ -161,7 +195,7 @@
         if (err != nil) {
             // show error message
             [SCAlertFactory showAlertWithError: err
-                                         title: @"Couldn't Start Block"
+                                         title: NSLocalizedString(@"Couldn't Start Block", nil)
                                 viewController: self];
         }
         

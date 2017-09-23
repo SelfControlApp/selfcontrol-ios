@@ -11,6 +11,10 @@
 
 @interface SCAlertFactory : NSObject
 
++ (void)showAlertWithTitle:(NSString*)title
+                     description:(NSString*)description
+            viewController:(UIViewController*)vc;
+
 + (void)showAlertWithError:(NSError*)err
                      title:(NSString*)title
             viewController:(UIViewController*)vc;

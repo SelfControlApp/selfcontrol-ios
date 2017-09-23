@@ -55,7 +55,7 @@
     
     UIButton* extendBlockButton = [UIButton buttonWithType: UIButtonTypeSystem];
     extendBlockButton.titleLabel.font = [UIFont systemFontOfSize: 24.0];
-    [extendBlockButton setTitle: @"Extend Block Time" forState: UIControlStateNormal];
+    [extendBlockButton setTitle: NSLocalizedString(@"Extend Block Time", nil) forState: UIControlStateNormal];
     extendBlockButton.backgroundColor = [UIColor blueColor];
     //    [extendBlockButton addTarget: self action: @selector(extendBlock) forControlEvents: UIControlEventTouchUpInside];
     [self.view addSubview: extendBlockButton];
@@ -68,12 +68,25 @@
 
     UIButton* addSiteButton = [UIButton buttonWithType: UIButtonTypeSystem];
     addSiteButton.titleLabel.font = [UIFont systemFontOfSize: 24.0];
-    [addSiteButton setTitle: @"Add Site to Block List" forState: UIControlStateNormal];
+    [addSiteButton setTitle: NSLocalizedString(@"Add Site to Block List", nil) forState: UIControlStateNormal];
     addSiteButton.backgroundColor = [UIColor blueColor];
     [addSiteButton addTarget: self action: @selector(showAddSiteDialog) forControlEvents: UIControlEventTouchUpInside];
     [self.view addSubview: addSiteButton];
     [addSiteButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(extendBlockButton.mas_top);
+        make.left.equalTo(self.view.mas_left);
+        make.right.equalTo(self.view.mas_right);
+        make.height.equalTo(@60);
+    }];
+    
+    UIButton* addAppButton = [UIButton buttonWithType: UIButtonTypeSystem];
+    addAppButton.titleLabel.font = [UIFont systemFontOfSize: 24.0];
+    [addAppButton setTitle: NSLocalizedString(@"Add App to Block List", nil) forState: UIControlStateNormal];
+    addAppButton.backgroundColor = [UIColor blueColor];
+    [addAppButton addTarget: self action: @selector(showAddSiteDialog) forControlEvents: UIControlEventTouchUpInside];
+    [self.view addSubview: addAppButton];
+    [addAppButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(addSiteButton.mas_top);
         make.left.equalTo(self.view.mas_left);
         make.right.equalTo(self.view.mas_right);
         make.height.equalTo(@60);
@@ -96,7 +109,7 @@
 }
 
 - (void)updateSitesBlockedLabel {
-    self.sitesBlockedLabel.text = [NSString stringWithFormat: @"Blocking %lu apps and %lu sites", (unsigned long)[SCBlockManager sharedManager].appBlockRules.count, (unsigned long)[SCBlockManager sharedManager].hostBlockRules.count];
+    self.sitesBlockedLabel.text = [NSString localizedStringWithFormat: NSLocalizedString(@"Blocking %lu apps and %lu sites", nil), (unsigned long)[SCBlockManager sharedManager].appBlockRules.count, (unsigned long)[SCBlockManager sharedManager].hostBlockRules.count];
 }
 
 - (void)updateTimerLabel {
@@ -132,8 +145,8 @@
 }
 
 - (void) showAddSiteDialog {
-    UIAlertController* alert = [UIAlertController alertControllerWithTitle: @"Add Site to Blocklist"
-                                                                   message: @"The new site will be inaccessible for the remainder of the current block."
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle: NSLocalizedString(@"Add Site to Blocklist", nil)
+                                                                   message: NSLocalizedString(@"The new site will be inaccessible for the remainder of the current block.", nil)
                                                             preferredStyle: UIAlertControllerStyleAlert];
     
     [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
@@ -149,11 +162,12 @@
         }];
     }];
     
-    UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
+    UIAlertAction* cancelAction = [UIAlertAction actionWithTitle: NSLocalizedString(@"Cancel", nil)
+                                                           style:UIAlertActionStyleCancel
                                                          handler:^(UIAlertAction * action) {}];
     [alert addAction: cancelAction];
     
-    UIAlertAction* addAction = [UIAlertAction actionWithTitle:@"Add" style:UIAlertActionStyleDefault
+    UIAlertAction* addAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Add", nil) style:UIAlertActionStyleDefault
                                                           handler:^(UIAlertAction * action) {
                                                               UITextField* textField = alert.textFields[0];
                                                               [[SCBlockManager sharedManager] addBlockRule: [SCBlockRule ruleWithHostname: textField.text] type: SCBlockTypeHost];

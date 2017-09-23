@@ -10,13 +10,25 @@
 
 @implementation SCAlertFactory
 
++ (void)showAlertWithTitle:(NSString*)title
+               description:(NSString*)description
+            viewController:(UIViewController*)vc {
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle: title
+                                                                   message: description
+                                                            preferredStyle: UIAlertControllerStyleAlert];
+    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * action) {}];
+    [alert addAction: defaultAction];
+    [vc presentViewController: alert animated: YES completion: nil];
+}
+
 + (void)showAlertWithError:(NSError*)err
                      title:(NSString*)title
             viewController:(UIViewController*)vc {
     UIAlertController* alert = [UIAlertController alertControllerWithTitle: title
                                                                    message: [err localizedDescription]
                                                             preferredStyle: UIAlertControllerStyleAlert];
-    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil) style:UIAlertActionStyleDefault
                                                           handler:^(UIAlertAction * action) {}];
     [alert addAction: defaultAction];
     [vc presentViewController: alert animated: YES completion: nil];
@@ -30,11 +42,11 @@
                                                                    message: description
                                                             preferredStyle: UIAlertControllerStyleAlert];
     
-    UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
+    UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil) style:UIAlertActionStyleCancel
                                                           handler:^(UIAlertAction * action) {}];
     [alert addAction: cancelAction];
     
-    UIAlertAction* confirmAction = [UIAlertAction actionWithTitle:@"Confirm" style:UIAlertActionStyleDefault
+    UIAlertAction* confirmAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Confirm", nil) style:UIAlertActionStyleDefault
                                                          handler:^(UIAlertAction * action) {
                                                              [handler invoke];
                                                          }];

@@ -24,79 +24,79 @@ static NSArray* SCBlockableApps = nil;
 - (instancetype)init {
     SCBlockableApps = @[
                          @{
-                             @"name": @"Facebook",
+                             @"name": NSLocalizedString(@"Facebook", nil),
                              @"bundleId": @"com.facebook.Facebook"
                              },
                          @{
-                             @"name": @"Facebook Messenger",
+                             @"name": NSLocalizedString(@"Facebook Messenger", nil),
                              @"bundleId": @"Messenger"
                              },
                          @{
-                             @"name": @"Safari",
+                             @"name": NSLocalizedString(@"Safari", nil),
                              @"bundleId": @"com.apple.mobilesafari"
                              },
                          @{
-                             @"name": @"Chrome",
+                             @"name": NSLocalizedString(@"Chrome", nil),
                              @"bundleId": @"com.google.chrome.ios"
                              },
                          @{
-                             @"name": @"Twitter",
+                             @"name": NSLocalizedString(@"Twitter", nil),
                              @"bundleId": @"com.atebits.Tweetie2"
                              },
                          @{
-                             @"name": @"Instagram",
+                             @"name": NSLocalizedString(@"Instagram", nil),
                              @"bundleId": @"com.burbn.instagram"
                              },
                          @{
-                             @"name": @"Snapchat",
+                             @"name": NSLocalizedString(@"Snapchat", nil),
                              @"bundleId": @"com.toyopagroup.picaboo"
                              },
                          @{
-                             @"name": @"YouTube",
+                             @"name": NSLocalizedString(@"YouTube", nil),
                              @"bundleId": @"com.youtube.ios.youtube"
                              },
                          @{
-                             @"name": @"Netflix",
+                             @"name": NSLocalizedString(@"Netflix", nil),
                              @"bundleId": @"com.netflix.Netflix"
                              },
                          @{
-                             @"name": @"Spotify",
+                             @"name": NSLocalizedString(@"Spotify", nil),
                              @"bundleId": @"com.spotify.client"
                              },
                          @{
-                             @"name": @"Flappy Bird",
+                             @"name": NSLocalizedString(@"Flappy Bird", nil),
                              @"bundleId": @"com.dotgears.flap"
                              },
                          @{
-                             @"name": @"9GAG",
+                             @"name": NSLocalizedString(@"9GAG", nil),
                              @"bundleId": @"com.9gag.ios.mobile"
                              },
                          @{
-                             @"name": @"Gmail",
+                             @"name": NSLocalizedString(@"Gmail", nil),
                              @"bundleId": @"com.google.Gmail"
                              },
                          @{
-                             @"name": @"Google Inbox",
+                             @"name": NSLocalizedString(@"Google Inbox", nil),
                              @"bundleId": @"com.google.inbox"
                              },
                          @{
-                             @"name": @"Medium",
+                             @"name": NSLocalizedString(@"Medium", nil),
                              @"bundleId": @"com.medium.reader"
                              },
                          @{
-                             @"name": @"Reddit",
+                             @"name": NSLocalizedString(@"Reddit", nil),
                              @"bundleId": @"com.tyanya.reddit"
                              },
                          @{
-                             @"name": @"Tinder",
+                             @"name": NSLocalizedString(@"Tinder", nil),
                              @"bundleId": @"com.cardify.tinder"
                              },
                          @{
-                             @"name": @"Tumblr",
+                             @"name": NSLocalizedString(@"Tumblr", nil),
                              @"bundleId": @"com.tumblr.tumblr"
                              },
                          @{
-                             @"name": @"Pokemon Go",
+                             @"name": NSLocalizedString(@"Pokemon Go", nil),
                              @"bundleId": @"com.nianticlabs.pokemongo"
                              },
                          ];
@@ -133,13 +133,10 @@ static NSArray* SCBlockableApps = nil;
 #pragma mark - UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"Did select row at index path %@", indexPath);
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     NSDictionary* appDict = [SCBlockableApps objectAtIndex: indexPath.row];
-    
-    NSLog(@"should add app: %@", appDict);
     
     SCBlockRule* rule = [SCBlockRule ruleWithAppDict: appDict];
 

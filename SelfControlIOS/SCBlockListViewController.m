@@ -67,11 +67,11 @@ static NSString * const SCBlockListAppCellIdentifier = @"AppCell";
     switch (section) {
         case SCBlockListSectionHosts:
             if ([SCBlockManager sharedManager].hostBlockRules.count) {
-                return @"Block access to these websites:";
+                return NSLocalizedString(@"Block access to these websites:", nil);
             }
         case SCBlockListSectionApps:
             if ([SCBlockManager sharedManager].appBlockRules.count) {
-                return @"Block network connection for these apps:";
+                return NSLocalizedString(@"Block network connection for these apps:", nil);
             }
     }
     
@@ -85,11 +85,11 @@ static NSString * const SCBlockListAppCellIdentifier = @"AppCell";
         cell.textLabel.textColor = self.view.tintColor;
 
         if (indexPath.row == 0) {
-            cell.textLabel.text = @"Add New Website";
+            cell.textLabel.text = NSLocalizedString(@"Add New Website", nil);
         } else if (indexPath.row == 1) {
-            cell.textLabel.text = @"Add New App";
+            cell.textLabel.text = NSLocalizedString(@"Add New App", nil);
         } else if (indexPath.row == 2) {
-            cell.textLabel.text = @"Import Common Sites";
+            cell.textLabel.text = NSLocalizedString(@"Import Common Sites", nil);
         }
         return cell;
         
@@ -99,7 +99,6 @@ static NSString * const SCBlockListAppCellIdentifier = @"AppCell";
         cell.delegate = self;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
-        NSLog(@"creating cell for host rule %@ with appDict %@", rule, rule.appDict);
         cell.textField.text = rule.hostname;
         cell.textField.textColor = UIColor.blackColor;
         cell.textField.userInteractionEnabled = YES;
@@ -111,9 +110,7 @@ static NSString * const SCBlockListAppCellIdentifier = @"AppCell";
         cell.delegate = self;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
-        NSLog(@"creating cell for app rule %@ with appDict %@", rule, rule.appDict);
         cell.textField.text = rule.appDict[@"name"];
-        NSLog(@"setting text to %@", rule.appDict[@"name"]);
         cell.textField.textColor = self.view.tintColor;
         cell.textField.userInteractionEnabled = NO;
         
@@ -148,7 +145,6 @@ static NSString * const SCBlockListAppCellIdentifier = @"AppCell";
 #pragma mark - UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"Did select row at index path %@", indexPath);
     if (indexPath.section != SCBlockListSectionButtons)
         return;
     

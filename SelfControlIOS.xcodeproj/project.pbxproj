@@ -17,6 +17,8 @@
 		CB0E6AA11EC19759003CA02B /* SCUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = CB0E6AA01EC19759003CA02B /* SCUtils.m */; };
 		CB0E6AA21EC1982A003CA02B /* SCUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = CB0E6AA01EC19759003CA02B /* SCUtils.m */; };
 		CB0E6AA31EC1982A003CA02B /* SCUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = CB0E6AA01EC19759003CA02B /* SCUtils.m */; };
+		CB47E1491F7632C8009A410A /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = CB47E1481F7632C8009A410A /* Localizable.stringsdict */; };
+		CB47E14B1F76375C009A410A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CB47E14A1F76375C009A410A /* Localizable.strings */; };
 		CB84E2EA1E109803005A0A6B /* SCFilterDataProvider.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = CB84E2E11E109803005A0A6B /* SCFilterDataProvider.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		CB84E2FB1E1098E6005A0A6B /* SCFilterControlProvider.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = CB84E2F21E1098E6005A0A6B /* SCFilterControlProvider.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		CB84E3081E109A59005A0A6B /* DataExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB84E3051E109A59005A0A6B /* DataExtension.swift */; };
@@ -114,6 +116,8 @@
 		CB0A894C1F08399500F2A352 /* SCAlertFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCAlertFactory.m; sourceTree = "<group>"; };
 		CB0E6A9F1EC19759003CA02B /* SCUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCUtils.h; sourceTree = "<group>"; };
 		CB0E6AA01EC19759003CA02B /* SCUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCUtils.m; sourceTree = "<group>"; };
+		CB47E1481F7632C8009A410A /* Localizable.stringsdict */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; path = Localizable.stringsdict; sourceTree = "<group>"; };
+		CB47E14A1F76375C009A410A /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		CB5D28AC1E9B572600EF7753 /* SCFilterDataProvider.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SCFilterDataProvider.entitlements; sourceTree = "<group>"; };
 		CB5D28AD1E9B572D00EF7753 /* SCFilterControlProvider.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SCFilterControlProvider.entitlements; sourceTree = "<group>"; };
 		CB84E2E11E109803005A0A6B /* SCFilterDataProvider.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SCFilterDataProvider.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -324,6 +328,8 @@
 				CBF188CA1E6299F0008EFB00 /* main.m */,
 				CB84E3111E10AA83005A0A6B /* FilterUtilities.swift */,
 				CBF188C91E6299F0008EFB00 /* SelfControlIOS-Bridging-Header.h */,
+				CB47E1481F7632C8009A410A /* Localizable.stringsdict */,
+				CB47E14A1F76375C009A410A /* Localizable.strings */,
 			);
 			path = SelfControlIOS;
 			sourceTree = "<group>";
@@ -565,7 +571,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				CB93D1B71E0F216700CE0571 /* LaunchScreen.storyboard in Resources */,
+				CB47E14B1F76375C009A410A /* Localizable.strings in Resources */,
 				CB93D1B41E0F216700CE0571 /* Assets.xcassets in Resources */,
+				CB47E1491F7632C8009A410A /* Localizable.stringsdict in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
