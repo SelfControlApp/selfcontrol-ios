@@ -9,6 +9,7 @@
 #import "SCAppSelectorViewController.h"
 #import "SCBlockRule.h"
 #import "SCBlockManager.h"
+#import "SCUtils.h"
 
 @interface SCAppSelectorViewController ()
 
@@ -25,6 +26,27 @@ static NSArray<NSDictionary*>* SCBlockableApps = nil;
 @synthesize delegate;
 
 - (instancetype)init {
+    SCBlockableApps = @[
+                        [SCUtils appDictForBundleId: @"com.facebook.Facebook"],
+                        [SCUtils appDictForBundleId: @"com.facebook.Messenger"],
+                        [SCUtils appDictForBundleId: @"com.apple.mobilesafari"],
+                        [SCUtils appDictForBundleId: @"com.google.chrome.ios"],
+                        [SCUtils appDictForBundleId: @"com.atebits.Tweetie2"],
+                        [SCUtils appDictForBundleId: @"com.burbn.instagram"],
+                        [SCUtils appDictForBundleId: @"com.toyopagroup.picaboo"],
+                        [SCUtils appDictForBundleId: @"com.youtube.ios.youtube"],
+                        [SCUtils appDictForBundleId: @"com.netflix.Netflix"],
+                        [SCUtils appDictForBundleId: @"com.spotify.client"],
+                        [SCUtils appDictForBundleId: @"com.dotgears.flap"],
+                        [SCUtils appDictForBundleId: @"com.9gag.ios.mobile"],
+                        [SCUtils appDictForBundleId: @"com.google.Gmail"],
+                        [SCUtils appDictForBundleId: @"com.google.inbox"],
+                        [SCUtils appDictForBundleId: @"com.medium.reader"],
+                        [SCUtils appDictForBundleId: @"com.tyanya.reddit"],
+                        [SCUtils appDictForBundleId: @"com.cardify.tinder"],
+                        [SCUtils appDictForBundleId: @"com.tumblr.tumblr"],
+                        [SCUtils appDictForBundleId: @"com.nianticlabs.pokemongo"]
+                        ];
     SCBlockableApps = @[
                          @{
                              @"name": NSLocalizedString(@"Facebook", nil),

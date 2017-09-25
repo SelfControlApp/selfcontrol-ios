@@ -11,6 +11,6 @@
 @interface SCUtils : NSObject
 
 + (NSString*)stringWithoutRegexSpecialChars:(NSString*)input;
-+ (NSArray<NSDictionary*>*)knownAppDicts;
++ (NSDictionary<NSString*, NSString*>*)appDictForBundleId:(NSString*)bundleId;
 
 @end
