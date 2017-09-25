@@ -25,7 +25,7 @@ static NSArray* SCSiteImportSets = nil;
     SCSiteImportSets = @[
                          @{
                              @"name": NSLocalizedString(@"Common Distracting Sites", nil),
-                             @"items": @[
+                             @"hosts": @[
                                      @"facebook.com",
                                      @"twitter.com",
                                      @"reddit.com",
@@ -41,11 +41,13 @@ static NSArray* SCSiteImportSets = nil;
                                      @"vine.co",
                                      @"pinterest.com",
                                      @"stumbleupon.com"
+                                     ],
+                             @"apps": @[
                                      ]
                              },
                          @{
                              @"name": NSLocalizedString(@"News & Publications", nil),
-                             @"items": @[
+                             @"hosts": @[
                                      @"cnn.com",
                                      @"huffingtonpost.com",
                                      @"foxnews.com",
@@ -94,6 +96,12 @@ static NSArray* SCSiteImportSets = nil;
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier: SCImportSetCellIdentifier];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear: animated];
+    
+    self.title = NSLocalizedString(@"Import Common Sites", nil);
+}
+
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -119,7 +127,7 @@ static NSArray* SCSiteImportSets = nil;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    NSArray* sites = [[SCSiteImportSets objectAtIndex: indexPath.row] objectForKey: @"items"];
+    NSArray* sites = [[SCSiteImportSets objectAtIndex: indexPath.row] objectForKey: @"hosts"];
     
     NSMutableArray* rules = [NSMutableArray array];
     for (unsigned long i = 0; i < sites.count; i++) {

@@ -32,8 +32,9 @@
 		CB93D1B71E0F216700CE0571 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB93D1B51E0F216700CE0571 /* LaunchScreen.storyboard */; };
 		CB93D1C21E0F216800CE0571 /* SelfControlIOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB93D1C11E0F216800CE0571 /* SelfControlIOSTests.swift */; };
 		CB93D1CD1E0F216800CE0571 /* SelfControlIOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB93D1CC1E0F216800CE0571 /* SelfControlIOSUITests.swift */; };
-		CBA9E3BC1F382D650074115B /* SCAddAppViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBA9E3BB1F382D650074115B /* SCAddAppViewController.m */; };
+		CBA9E3BC1F382D650074115B /* SCAppSelectorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBA9E3BB1F382D650074115B /* SCAppSelectorViewController.m */; };
 		CBCFC6131F0C330F00F11008 /* SCImportSitesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBCFC6121F0C330F00F11008 /* SCImportSitesViewController.m */; };
+		CBF0ABD91F77407000B155FE /* SCUtils+SCViewUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF0ABD81F77407000B155FE /* SCUtils+SCViewUtils.m */; };
 		CBF188CB1E6299F0008EFB00 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF188CA1E6299F0008EFB00 /* main.m */; };
 		CBF188CE1E629A3B008EFB00 /* SCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF188CD1E629A3B008EFB00 /* SCAppDelegate.m */; };
 		CBF188D11E629B5A008EFB00 /* SCStartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF188D01E629B5A008EFB00 /* SCStartViewController.m */; };
@@ -45,6 +46,7 @@
 		CBF188E11E62AEAF008EFB00 /* SCBlockRule.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF188DF1E62AC83008EFB00 /* SCBlockRule.m */; };
 		CBF188E21E62AEB0008EFB00 /* SCBlockRule.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF188DF1E62AC83008EFB00 /* SCBlockRule.m */; };
 		CBF188E51E62BA23008EFB00 /* SCBlockRuleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF188E41E62BA23008EFB00 /* SCBlockRuleTableViewCell.m */; };
+		CBFA7AA41F7747F50091338D /* UIButton+SCButtons.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFA7AA31F7747F50091338D /* UIButton+SCButtons.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -139,10 +141,13 @@
 		CB93D1C81E0F216800CE0571 /* SelfControlIOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SelfControlIOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB93D1CC1E0F216800CE0571 /* SelfControlIOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfControlIOSUITests.swift; sourceTree = "<group>"; };
 		CB93D1CE1E0F216800CE0571 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CBA9E3BA1F382D650074115B /* SCAddAppViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCAddAppViewController.h; sourceTree = "<group>"; };
-		CBA9E3BB1F382D650074115B /* SCAddAppViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCAddAppViewController.m; sourceTree = "<group>"; };
+		CBA9E3BA1F382D650074115B /* SCAppSelectorViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCAppSelectorViewController.h; sourceTree = "<group>"; };
+		CBA9E3BB1F382D650074115B /* SCAppSelectorViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCAppSelectorViewController.m; sourceTree = "<group>"; };
 		CBCFC6111F0C330F00F11008 /* SCImportSitesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCImportSitesViewController.h; sourceTree = "<group>"; };
 		CBCFC6121F0C330F00F11008 /* SCImportSitesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCImportSitesViewController.m; sourceTree = "<group>"; };
+		CBF0ABD31F772F2900B155FE /* SCAppSelectorDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCAppSelectorDelegate.h; sourceTree = "<group>"; };
+		CBF0ABD71F77407000B155FE /* SCUtils+SCViewUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SCUtils+SCViewUtils.h"; sourceTree = "<group>"; };
+		CBF0ABD81F77407000B155FE /* SCUtils+SCViewUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "SCUtils+SCViewUtils.m"; sourceTree = "<group>"; };
 		CBF188C91E6299F0008EFB00 /* SelfControlIOS-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SelfControlIOS-Bridging-Header.h"; sourceTree = "<group>"; };
 		CBF188CA1E6299F0008EFB00 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CBF188CC1E629A3B008EFB00 /* SCAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCAppDelegate.h; sourceTree = "<group>"; };
@@ -161,6 +166,8 @@
 		CBF188DF1E62AC83008EFB00 /* SCBlockRule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCBlockRule.m; sourceTree = "<group>"; };
 		CBF188E31E62BA23008EFB00 /* SCBlockRuleTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCBlockRuleTableViewCell.h; sourceTree = "<group>"; };
 		CBF188E41E62BA23008EFB00 /* SCBlockRuleTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCBlockRuleTableViewCell.m; sourceTree = "<group>"; };
+		CBFA7AA21F7747F50091338D /* UIButton+SCButtons.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIButton+SCButtons.h"; sourceTree = "<group>"; };
+		CBFA7AA31F7747F50091338D /* UIButton+SCButtons.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIButton+SCButtons.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -309,8 +316,9 @@
 				CBF188D31E629CAC008EFB00 /* SCBlockListViewController.m */,
 				CBCFC6111F0C330F00F11008 /* SCImportSitesViewController.h */,
 				CBCFC6121F0C330F00F11008 /* SCImportSitesViewController.m */,
-				CBA9E3BA1F382D650074115B /* SCAddAppViewController.h */,
-				CBA9E3BB1F382D650074115B /* SCAddAppViewController.m */,
+				CBF0ABD31F772F2900B155FE /* SCAppSelectorDelegate.h */,
+				CBA9E3BA1F382D650074115B /* SCAppSelectorViewController.h */,
+				CBA9E3BB1F382D650074115B /* SCAppSelectorViewController.m */,
 				CBF188D51E629D03008EFB00 /* SCTimerViewController.h */,
 				CBF188D61E629D03008EFB00 /* SCTimerViewController.m */,
 				CBF188DE1E62AC83008EFB00 /* SCBlockRule.h */,
@@ -319,9 +327,13 @@
 				CBF188DC1E62AAB4008EFB00 /* SCBlockManager.m */,
 				CB0A894B1F08399500F2A352 /* SCAlertFactory.h */,
 				CB0A894C1F08399500F2A352 /* SCAlertFactory.m */,
+				CBFA7AA21F7747F50091338D /* UIButton+SCButtons.h */,
+				CBFA7AA31F7747F50091338D /* UIButton+SCButtons.m */,
 				CB0A894A1F08357600F2A352 /* Formatters */,
 				CB0E6A9F1EC19759003CA02B /* SCUtils.h */,
 				CB0E6AA01EC19759003CA02B /* SCUtils.m */,
+				CBF0ABD71F77407000B155FE /* SCUtils+SCViewUtils.h */,
+				CBF0ABD81F77407000B155FE /* SCUtils+SCViewUtils.m */,
 				CB93D1B31E0F216700CE0571 /* Assets.xcassets */,
 				CB93D1B51E0F216700CE0571 /* LaunchScreen.storyboard */,
 				CB93D1B81E0F216700CE0571 /* Info.plist */,
@@ -821,13 +833,15 @@
 				CBCFC6131F0C330F00F11008 /* SCImportSitesViewController.m in Sources */,
 				CBF188E51E62BA23008EFB00 /* SCBlockRuleTableViewCell.m in Sources */,
 				CBF188E01E62AC83008EFB00 /* SCBlockRule.m in Sources */,
-				CBA9E3BC1F382D650074115B /* SCAddAppViewController.m in Sources */,
+				CBA9E3BC1F382D650074115B /* SCAppSelectorViewController.m in Sources */,
 				CB84E3121E10AA83005A0A6B /* FilterUtilities.swift in Sources */,
 				CBF188D71E629D03008EFB00 /* SCTimerViewController.m in Sources */,
 				CBF188D41E629CAC008EFB00 /* SCBlockListViewController.m in Sources */,
 				CB0A89491F08357200F2A352 /* SCTimeIntervalFormatter.m in Sources */,
 				CB0A894D1F08399500F2A352 /* SCAlertFactory.m in Sources */,
 				CBF188CB1E6299F0008EFB00 /* main.m in Sources */,
+				CBFA7AA41F7747F50091338D /* UIButton+SCButtons.m in Sources */,
+				CBF0ABD91F77407000B155FE /* SCUtils+SCViewUtils.m in Sources */,
 				CBF188DA1E629D16008EFB00 /* SCMainViewController.m in Sources */,
 				CB0E6AA11EC19759003CA02B /* SCUtils.m in Sources */,
 				CBF188CE1E629A3B008EFB00 /* SCAppDelegate.m in Sources */,

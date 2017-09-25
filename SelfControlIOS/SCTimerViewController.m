@@ -7,9 +7,15 @@
 //
 
 #import "SCTimerViewController.h"
+#import "SCTimeIntervalFormatter.h"
 #import "SCMainViewController.h"
+#import "SCAppSelectorViewController.h"
 #import "SCBlockManager.h"
 #import "SCBlockRule.h"
+#import "SCUtils.h"
+#import "SCUtils+SCViewUtils.h"
+#import "SCAlertFactory.h"
+#import "UIButton+SCButtons.h"
 #import <Masonry/Masonry.h>
 
 @interface SCTimerViewController ()
@@ -53,43 +59,34 @@
     }];
     self.sitesBlockedLabel = sitesBlockedLabel;
     
-    UIButton* extendBlockButton = [UIButton buttonWithType: UIButtonTypeSystem];
-    extendBlockButton.titleLabel.font = [UIFont systemFontOfSize: 24.0];
-    [extendBlockButton setTitle: NSLocalizedString(@"Extend Block Time", nil) forState: UIControlStateNormal];
-    extendBlockButton.backgroundColor = [UIColor blueColor];
-    //    [extendBlockButton addTarget: self action: @selector(extendBlock) forControlEvents: UIControlEventTouchUpInside];
+    UIButton* extendBlockButton = [UIButton scActionButton];
+    [extendBlockButton setTitle: NSLocalizedString(@"Extend Block Duration", nil) forState: UIControlStateNormal];
+    [extendBlockButton addTarget: self action: @selector(showExtendBlockDialog) forControlEvents: UIControlEventTouchUpInside];
     [self.view addSubview: extendBlockButton];
     [extendBlockButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.view.mas_bottom);
         make.left.equalTo(self.view.mas_left);
         make.right.equalTo(self.view.mas_right);
-        make.height.equalTo(@60);
     }];
 
-    UIButton* addSiteButton = [UIButton buttonWithType: UIButtonTypeSystem];
-    addSiteButton.titleLabel.font = [UIFont systemFontOfSize: 24.0];
+    UIButton* addSiteButton = [UIButton scActionButton];
     [addSiteButton setTitle: NSLocalizedString(@"Add Site to Block List", nil) forState: UIControlStateNormal];
-    addSiteButton.backgroundColor = [UIColor blueColor];
     [addSiteButton addTarget: self action: @selector(showAddSiteDialog) forControlEvents: UIControlEventTouchUpInside];
     [self.view addSubview: addSiteButton];
     [addSiteButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(extendBlockButton.mas_top);
         make.left.equalTo(self.view.mas_left);
         make.right.equalTo(self.view.mas_right);
-        make.height.equalTo(@60);
     }];
     
-    UIButton* addAppButton = [UIButton buttonWithType: UIButtonTypeSystem];
-    addAppButton.titleLabel.font = [UIFont systemFontOfSize: 24.0];
+    UIButton* addAppButton = [UIButton scActionButton];
     [addAppButton setTitle: NSLocalizedString(@"Add App to Block List", nil) forState: UIControlStateNormal];
-    addAppButton.backgroundColor = [UIColor blueColor];
-    [addAppButton addTarget: self action: @selector(showAddSiteDialog) forControlEvents: UIControlEventTouchUpInside];
+    [addAppButton addTarget: self action: @selector(showAddAppDialog) forControlEvents: UIControlEventTouchUpInside];
     [self.view addSubview: addAppButton];
     [addAppButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(addSiteButton.mas_top);
         make.left.equalTo(self.view.mas_left);
         make.right.equalTo(self.view.mas_right);
-        make.height.equalTo(@60);
     }];
 }
 
@@ -102,6 +99,8 @@
                                                        selector: @selector(timerUpdate)
                                                        userInfo: nil
                                                         repeats: YES];
+    
+    [self.navigationController setNavigationBarHidden: YES animated: YES];
 }
 - (void)viewWillDisappear:(BOOL)animated {
     [_updateLabelTimer invalidate];
@@ -109,7 +108,7 @@
 }
 
 - (void)updateSitesBlockedLabel {
-    self.sitesBlockedLabel.text = [NSString localizedStringWithFormat: NSLocalizedString(@"Blocking %lu apps and %lu sites", nil), (unsigned long)[SCBlockManager sharedManager].appBlockRules.count, (unsigned long)[SCBlockManager sharedManager].hostBlockRules.count];
+    self.sitesBlockedLabel.text = [NSString localizedStringWithFormat: NSLocalizedString(@"Blocking %@", nil), [SCUtils blockListSummaryString]];
 }
 
 - (void)updateTimerLabel {
@@ -178,9 +177,70 @@
     [self presentViewController: alert animated: YES completion: nil];
 }
 
+- (void)showAddAppDialog {
+    SCAppSelectorViewController* addAppVC = [SCAppSelectorViewController new];
+    addAppVC.delegate = self;
+    [self.navigationController pushViewController: addAppVC animated: YES];
+    [self.navigationController setNavigationBarHidden: NO animated: YES];
+}
+
+- (void)showExtendBlockDialog {
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle: NSLocalizedString(@"Extend Block Duration", nil)
+                                                                   message: NSLocalizedString(@"The chosen amount of time will be added on to your current block.", nil)
+                                                            preferredStyle: UIAlertControllerStyleActionSheet];
+    
+    static SCTimeIntervalFormatter* formatter = nil;
+    if (formatter == nil) {
+        formatter = [[SCTimeIntervalFormatter alloc] init];
+    }
+
+    NSArray<NSNumber*>* blockExtensionOptionsSeconds = @[
+                                       @300,
+                                       @900,
+                                       @1800,
+                                       @3600,
+                                       @7200,
+                                       @21600
+                                       ];
+    
+    for (int i = 0; i < blockExtensionOptionsSeconds.count; i++) {
+        NSString* optionText = [NSString localizedStringWithFormat: NSLocalizedString(@"Extend block by %@", nil), [formatter stringForObjectValue: blockExtensionOptionsSeconds[i]]];
+        UIAlertAction* extendAction = [UIAlertAction actionWithTitle: optionText
+                                 style:UIAlertActionStyleDefault
+                               handler:^(UIAlertAction * action) {
+                                   NSInteger extendSecs = blockExtensionOptionsSeconds[i].integerValue;
+                                   if ([SCBlockManager sharedManager].blockEndDate.timeIntervalSinceNow + extendSecs > 604800) {
+                                       [SCAlertFactory showAlertWithTitle: @"Can't Extend Block"
+                                                              description: @"Sorry, we don't let you extend your block for longer than a week. It's for your own good."
+                                                           viewController: self];
+                                       return;
+                                   }
+   
+                                   [[SCBlockManager sharedManager] extendBlockDuration: extendSecs];
+                                   [self updateTimerLabel];
+                               }];
+        [alert addAction: extendAction];
+    }
+    
+    UIAlertAction* cancelAction = [UIAlertAction actionWithTitle: NSLocalizedString(@"Cancel", nil)
+                                                           style:UIAlertActionStyleCancel
+                                                         handler:^(UIAlertAction * action) {}];
+    [alert addAction: cancelAction];
+
+    [self presentViewController: alert animated: YES completion: nil];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - SCAppSelectorDelegate
+
+- (void)appRuleSelected:(SCBlockRule*)appRule {
+    [[SCBlockManager sharedManager] addBlockRule: appRule type: SCBlockTypeApp];
+    [self updateSitesBlockedLabel];
+    [self.navigationController setNavigationBarHidden: YES animated: YES];
 }
 
 /*

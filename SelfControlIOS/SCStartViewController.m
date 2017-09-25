@@ -12,13 +12,16 @@
 #import "SCBlockListViewController.h"
 #import "SCTimeIntervalFormatter.h"
 #import "SCAlertFactory.h"
+#import "UIButton+SCButtons.h"
+#import "SCUtils.h"
+#import "SCUtils+SCViewUtils.h"
 #import <Masonry/Masonry.h>
 
 @interface SCStartViewController ()
 
-@property (nonatomic, weak) UISlider* blockTimeSlider;
-@property (nonatomic, weak) UILabel* humanReadableBlockTimeLabel;
+@property (nonatomic, weak) UIDatePicker* blockTimePicker;
 @property (nonatomic, weak) UILabel* sitesBlockedLabel;
+@property (nonatomic, weak) UIButton* startBlockButton;
 
 @end
 
@@ -45,36 +48,24 @@
         make.centerX.equalTo(self.view.mas_centerX);
     }];
     
-    UISlider* blockTimeSlider = [UISlider new];
-    blockTimeSlider.minimumValue = 60; // 1 minute
-    blockTimeSlider.maximumValue = 86400; // 1 day
-    blockTimeSlider.continuous = YES;
-    [self.view addSubview: blockTimeSlider];
-    [blockTimeSlider mas_makeConstraints:^(MASConstraintMaker *make) {
+    UIDatePicker* blockTimePicker = [UIDatePicker new];
+    blockTimePicker.datePickerMode = UIDatePickerModeCountDownTimer;
+    blockTimePicker.minuteInterval = 1;
+    [self.view addSubview: blockTimePicker];
+    [blockTimePicker mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(focusForLabel.mas_bottom).with.offset(15);
-        make.left.equalTo(self.view.mas_left).with.offset(40);
-        make.right.equalTo(self.view.mas_right).with.offset(-40);
+        make.left.equalTo(self.view.mas_left);
+        make.right.equalTo(self.view.mas_right);
     }];
-    self.blockTimeSlider = blockTimeSlider;
+    self.blockTimePicker = blockTimePicker;
     // pull initial value from defaults
-    self.blockTimeSlider.value = [[NSUserDefaults standardUserDefaults] integerForKey:@"blockLengthSeconds"];
-
-    // Todo: actually convert this label into proper units
-    UILabel* humanReadableBlockTimeLabel = [UILabel new];
-    [self.view addSubview: humanReadableBlockTimeLabel];
-    [humanReadableBlockTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(blockTimeSlider).with.offset(35);
-        make.centerX.equalTo(self.view.mas_centerX);
-    }];
-    [blockTimeSlider addTarget: self action: @selector(blockTimeSliderChanged:) forControlEvents: UIControlEventValueChanged];
-    self.humanReadableBlockTimeLabel = humanReadableBlockTimeLabel;
-    // initialize time label
-    [self blockTimeSliderChanged: blockTimeSlider];
+    self.blockTimePicker.countDownDuration = [[NSUserDefaults standardUserDefaults] integerForKey:@"blockLengthSeconds"];
+    [blockTimePicker addTarget: self action: @selector(blockTimePickerChanged:) forControlEvents: UIControlEventValueChanged];
     
     UILabel* sitesBlockedLabel = [UILabel new];
     [self.view addSubview: sitesBlockedLabel];
     [sitesBlockedLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(humanReadableBlockTimeLabel).with.offset(60);
+        make.top.equalTo(blockTimePicker.mas_bottom).with.offset(30);
         make.centerX.equalTo(self.view.mas_centerX);
     }];
     self.sitesBlockedLabel = sitesBlockedLabel;
@@ -90,18 +81,16 @@
         make.centerX.equalTo(self.view.mas_centerX);
     }];
     
-    UIButton* startBlockButton = [UIButton buttonWithType: UIButtonTypeSystem];
-    startBlockButton.titleLabel.font = [UIFont systemFontOfSize: 24.0];
+    UIButton* startBlockButton = [UIButton scActionButton];
     [startBlockButton setTitle: NSLocalizedString(@"Start Block", nil) forState: UIControlStateNormal];
-    startBlockButton.backgroundColor = [UIColor blueColor];
     [startBlockButton addTarget: self action: @selector(startBlockButtonPressed) forControlEvents: UIControlEventTouchUpInside];
     [self.view addSubview: startBlockButton];
     [startBlockButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.view.mas_bottom);
         make.left.equalTo(self.view.mas_left);
         make.right.equalTo(self.view.mas_right);
-        make.height.equalTo(@60);
     }];
+    self.startBlockButton = startBlockButton;
 }
 
 - (NSString*)humanReadableBlockTime {
@@ -111,15 +100,12 @@
         formatter = [[SCTimeIntervalFormatter alloc] init];
     }
 
-    return [formatter stringForObjectValue:@(self.blockTimeSlider.value)];
+    return [formatter stringForObjectValue:@(self.blockTimePicker.countDownDuration)];
 }
 
-- (void)blockTimeSliderChanged:(id)sender {
-    // update time label
-    self.humanReadableBlockTimeLabel.text = [self humanReadableBlockTime];
-    
+- (void)blockTimePickerChanged:(id)sender {
     // save to defaults
-    [[NSUserDefaults standardUserDefaults] setInteger: self.blockTimeSlider.value forKey: @"blockLengthSeconds"];
+    [[NSUserDefaults standardUserDefaults] setInteger: self.blockTimePicker.countDownDuration forKey: @"blockLengthSeconds"];
 }
 
 - (void)updateSitesBlockedLabel {
@@ -128,27 +114,10 @@
     
     if (!appsBlocked && !sitesBlocked) {
         self.sitesBlockedLabel.text = NSLocalizedString(@"Your block list is empty.", nil);
+        self.startBlockButton.enabled = NO;
     } else {
-        self.sitesBlockedLabel.text = [NSString stringWithFormat: NSLocalizedString(@"%@ will be blocked.", @"{blocked items} will be blocked."), [self blockListSummaryString]];
-    }
-}
-
-- (NSString*)blockListSummaryString {
-    NSInteger appsBlocked = [SCBlockManager sharedManager].appBlockRules.count;
-    NSInteger sitesBlocked = [SCBlockManager sharedManager].hostBlockRules.count;
-
-    NSString* appsString = [NSString localizedStringWithFormat: NSLocalizedString(@"%lu app(s)", @"%{number of blocked apps} app(s)"), (unsigned long)appsBlocked];
-    NSString* sitesString = [NSString localizedStringWithFormat: NSLocalizedString(@"%lu site(s)", @"{number of blocked sites} site(s)"), (unsigned long)sitesBlocked];
-    
-    if (!appsBlocked && !sitesBlocked) {
-        return NSLocalizedString(@"Nothing", nil);
-    } else if (appsBlocked && sitesBlocked) {
-        return [NSString localizedStringWithFormat: NSLocalizedString(@"%@ and %@", @"{num blocked apps} apps and {num blocked sites} sites"), appsString, sitesString];
-    } else if (appsBlocked) {
-        return appsString;
-    } else {
-        // only sitesBlocked
-        return sitesString;
+        self.sitesBlockedLabel.text = [NSString stringWithFormat: NSLocalizedString(@"%@ will be blocked.", @"{blocked items} will be blocked."), [SCUtils blockListSummaryString]];
+        self.startBlockButton.enabled = YES;
     }
 }
 
@@ -180,7 +149,7 @@
         return;
     }
 
-    NSString* confirmText = [NSString localizedStringWithFormat: NSLocalizedString(@"Are you sure you want to start the block? %@ will be blocked for %@.", @"Are you sure you want to start the block? {blocked things} will be blocked for {block duration}"), [self blockListSummaryString], self.humanReadableBlockTime];
+    NSString* confirmText = [NSString localizedStringWithFormat: NSLocalizedString(@"Are you sure you want to start the block? %@ will be blocked for %@.", @"Are you sure you want to start the block? {blocked things} will be blocked for {block duration}"), [SCUtils blockListSummaryString], self.humanReadableBlockTime];
     
     [SCAlertFactory showConfirmationDialogWithTitle: NSLocalizedString(@"Confirm Block", nil)
                                         description: confirmText

@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "SCBlockRule.h"
+#import "SCAppSelectorDelegate.h"
 
-@interface SCBlockListViewController : UITableViewController
+@interface SCBlockListViewController : UITableViewController <SCAppSelectorDelegate>
 
 - (void)addRulesToList:(NSArray<SCBlockRule*>*)rules type:(SCBlockType)type;
 

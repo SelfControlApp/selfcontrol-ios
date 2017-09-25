@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SCAppSelectorDelegate.h"
 
-@interface SCTimerViewController : UIViewController
+@interface SCTimerViewController : UIViewController <SCAppSelectorDelegate>
 
 @end

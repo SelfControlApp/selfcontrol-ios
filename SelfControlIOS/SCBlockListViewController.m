@@ -10,7 +10,7 @@
 #import "SCBlockManager.h"
 #import "SCBlockRuleTableViewCell.h"
 #import "SCImportSitesViewController.h"
-#import "SCAddAppViewController.h"
+#import "SCAppSelectorViewController.h"
 
 typedef NS_ENUM(NSInteger, SCBlockListSection) {
     SCBlockListSectionButtons = 0,
@@ -45,6 +45,13 @@ static NSString * const SCBlockListAppCellIdentifier = @"AppCell";
     [self.tableView registerClass:[SCBlockRuleTableViewCell class] forCellReuseIdentifier:SCBlockListAppCellIdentifier];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear: animated];
+    
+    self.title = NSLocalizedString(@"Edit Block List", nil);
+    NSLog(@"view ill appear");
+}
+
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -69,10 +76,12 @@ static NSString * const SCBlockListAppCellIdentifier = @"AppCell";
             if ([SCBlockManager sharedManager].hostBlockRules.count) {
                 return NSLocalizedString(@"Block access to these websites:", nil);
             }
+            break;
         case SCBlockListSectionApps:
             if ([SCBlockManager sharedManager].appBlockRules.count) {
                 return NSLocalizedString(@"Block network connection for these apps:", nil);
             }
+            break;
     }
     
     return nil;
@@ -164,8 +173,8 @@ static NSString * const SCBlockListAppCellIdentifier = @"AppCell";
         
     } else if (indexPath.row == 1) {
         // add app
-        SCAddAppViewController* addAppVC = [SCAddAppViewController new];
-        addAppVC.blockListViewController = self;
+        SCAppSelectorViewController* addAppVC = [SCAppSelectorViewController new];
+        addAppVC.delegate = self;
         [self.navigationController pushViewController: addAppVC animated: YES];
     } else if (indexPath.row == 2) {
         // import common sites
@@ -210,6 +219,12 @@ static NSString * const SCBlockListAppCellIdentifier = @"AppCell";
         [indexPaths addObject: indexPath];
     }
     [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
+#pragma mark - SCAppSelectorDelegate
+
+- (void)appRuleSelected:(SCBlockRule*)appRule {
+    [self addRulesToList: @[appRule] type: SCBlockTypeApp];
 }
 
 @end

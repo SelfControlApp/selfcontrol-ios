@@ -1,5 +1,5 @@
 //
-//  SCAddAppViewController.h
+//  SCAppSelectorViewController.h
 //  SelfControlIOS
 //
 //  Created by Charles Stigler on 06/08/2017.
@@ -9,9 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "SCBlockListViewController.h"
 #import "SCBlockManager.h"
+#import "SCAppSelectorDelegate.h"
 
-@interface SCAddAppViewController : UITableViewController
+@interface SCAppSelectorViewController : UITableViewController
 
-@property (weak) SCBlockListViewController* blockListViewController;
+@property (weak) id<SCAppSelectorDelegate> delegate;
 
 @end

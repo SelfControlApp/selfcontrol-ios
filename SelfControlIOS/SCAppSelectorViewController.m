@@ -1,25 +1,28 @@
 //
-//  SCAddAppViewController.m
+//  SCAppSelectorViewController.m
 //  SelfControlIOS
 //
 //  Created by Charles Stigler on 06/08/2017.
 //  Copyright © 2017 SelfControl. All rights reserved.
 //
 
-#import "SCAddAppViewController.h"
+#import "SCAppSelectorViewController.h"
 #import "SCBlockRule.h"
+#import "SCBlockManager.h"
 
-@interface SCAddAppViewController ()
+@interface SCAppSelectorViewController ()
+
+@property (nonatomic, readonly) NSArray<NSDictionary*>* availableApps;
 
 @end
 
 static NSString * const SCBlockableAppCellIdentifier = @"BlockableApp";
 
-static NSArray* SCBlockableApps = nil;
+static NSArray<NSDictionary*>* SCBlockableApps = nil;
 
-@implementation SCAddAppViewController
+@implementation SCAppSelectorViewController
 
-@synthesize blockListViewController;
+@synthesize delegate;
 
 - (instancetype)init {
     SCBlockableApps = @[
@@ -110,6 +113,25 @@ static NSArray* SCBlockableApps = nil;
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier: SCBlockableAppCellIdentifier];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear: animated];
+
+    self.title = NSLocalizedString(@"Add App to Block List", nil);
+}
+
+// returns just the apps that are available to add to the block, *not* including the ones that are already being blocked
+- (NSArray*)availableApps {
+    NSArray<SCBlockRule*>* existingAppRules = [[SCBlockManager sharedManager] appBlockRules];
+    NSMutableArray<NSString*>* blockedBundleIds = [NSMutableArray arrayWithCapacity: existingAppRules.count];
+    [existingAppRules enumerateObjectsUsingBlock:^(SCBlockRule* rule, NSUInteger idx, BOOL * _Nonnull stop) {
+        [blockedBundleIds addObject: rule.appDict[@"bundleId"]];
+    }];
+
+    return [SCBlockableApps filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(NSDictionary* appDict, NSDictionary<NSString *,id> * _Nullable bindings) {
+        return ![blockedBundleIds containsObject: appDict[@"bundleId"]];
+    }]];
+}
+
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -117,14 +139,14 @@ static NSArray* SCBlockableApps = nil;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return SCBlockableApps.count;
+    return self.availableApps.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:SCBlockableAppCellIdentifier];
     cell.textLabel.textColor = self.view.tintColor;
     
-    NSDictionary* appSet = [SCBlockableApps objectAtIndex: indexPath.row];
+    NSDictionary* appSet = [self.availableApps objectAtIndex: indexPath.row];
     cell.textLabel.text = (NSString*)[appSet objectForKey: @"name"];
     
     return cell;
@@ -136,11 +158,8 @@ static NSArray* SCBlockableApps = nil;
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    NSDictionary* appDict = [SCBlockableApps objectAtIndex: indexPath.row];
-    
-    SCBlockRule* rule = [SCBlockRule ruleWithAppDict: appDict];
-
-    [blockListViewController addRulesToList: @[rule] type: SCBlockTypeApp];
+    NSDictionary* appDict = [self.availableApps objectAtIndex: indexPath.row];
+    [delegate appRuleSelected: [SCBlockRule ruleWithAppDict: appDict]];
 
     [self.navigationController popViewControllerAnimated: YES];
 }

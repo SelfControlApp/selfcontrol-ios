@@ -23,6 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)removeBlockRuleAtIndex:(NSUInteger)index type:(SCBlockType)type;
 - (NSArray<SCBlockRule *>*)blockRulesOfType:(SCBlockType)type;
 - (void)setBlockRules:(NSArray<SCBlockRule *>*)blockRules type:(SCBlockType)type;
+- (void)extendBlockDuration:(NSInteger)seconds;
 
 @property (nonatomic, copy) NSArray<SCBlockRule *> *appBlockRules;
 @property (nonatomic, copy) NSArray<SCBlockRule *> *hostBlockRules;

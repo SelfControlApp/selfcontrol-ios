@@ -175,6 +175,10 @@ NS_ASSUME_NONNULL_BEGIN
     [self updateFilterRules];
 }
 
+- (void)extendBlockDuration:(NSInteger)seconds {
+    self.blockEndDate = [_blockEndDate dateByAddingTimeInterval: seconds];
+}
+
 - (BOOL)blockIsRunning {
     return (_blockEndDate.timeIntervalSinceNow > 0);
 }
