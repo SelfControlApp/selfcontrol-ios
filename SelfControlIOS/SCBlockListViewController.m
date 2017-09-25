@@ -98,7 +98,7 @@ static NSString * const SCBlockListAppCellIdentifier = @"AppCell";
         } else if (indexPath.row == 1) {
             cell.textLabel.text = NSLocalizedString(@"Add New App", nil);
         } else if (indexPath.row == 2) {
-            cell.textLabel.text = NSLocalizedString(@"Import Common Sites", nil);
+            cell.textLabel.text = NSLocalizedString(@"Import Common Block Lists", nil);
         }
         return cell;
         
@@ -161,10 +161,12 @@ static NSString * const SCBlockListAppCellIdentifier = @"AppCell";
     
     if (indexPath.row == 0) {
         // "Add New Website" button
-        [[SCBlockManager sharedManager] addBlockRule: [SCBlockRule ruleWithHostname: @""] type: SCBlockTypeHost];
+        BOOL ruleAdded = [[SCBlockManager sharedManager] addBlockRule: [SCBlockRule ruleWithHostname: @""] type: SCBlockTypeHost];
         
-        NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:([SCBlockManager sharedManager].hostBlockRules.count - 1) inSection:SCBlockListSectionHosts];
-        [tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:0 inSection:SCBlockListSectionHosts];
+        if (ruleAdded) {
+            [tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        }
         
         dispatch_async(dispatch_get_main_queue(), ^{
             SCBlockRuleTableViewCell *cell = [tableView cellForRowAtIndexPath:newIndexPath];
@@ -209,11 +211,11 @@ static NSString * const SCBlockListAppCellIdentifier = @"AppCell";
 # pragma mark - Other methods
 
 - (void)addRulesToList:(NSArray<SCBlockRule*>*)newBlockRules type:(SCBlockType)type {
-    [[SCBlockManager sharedManager] addBlockRules: newBlockRules type: type];
+    NSInteger numRulesAdded = [[SCBlockManager sharedManager] addBlockRules: newBlockRules type: type];
     NSArray<SCBlockRule *> *blockRules = [[SCBlockManager sharedManager] blockRulesOfType: type];
 
     NSMutableArray* indexPaths = [NSMutableArray array];
-    for (unsigned long i = blockRules.count - newBlockRules.count; i < blockRules.count; i++) {
+    for (unsigned long i = blockRules.count - numRulesAdded; i < blockRules.count; i++) {
         SCBlockListSection section = (type == SCBlockTypeApp ? SCBlockListSectionApps : SCBlockListSectionHosts);
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow: i inSection: section];
         [indexPaths addObject: indexPath];

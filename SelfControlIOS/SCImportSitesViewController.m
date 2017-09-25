@@ -8,6 +8,7 @@
 
 #import "SCImportSitesViewController.h"
 #import "SCBlockRule.h"
+#import "SCUtils.h"
 
 @interface SCImportSitesViewController ()
 
@@ -15,16 +16,16 @@
 
 static NSString * const SCImportSetCellIdentifier = @"ImportSet";
 
-static NSArray* SCSiteImportSets = nil;
+static NSArray* SCBlockImportSets = nil;
 
 @implementation SCImportSitesViewController
 
 @synthesize blockListViewController;
 
 - (instancetype)init {
-    SCSiteImportSets = @[
+    SCBlockImportSets = @[
                          @{
-                             @"name": NSLocalizedString(@"Common Distracting Sites", nil),
+                             @"name": NSLocalizedString(@"Common Distractions", nil),
                              @"hosts": @[
                                      @"facebook.com",
                                      @"twitter.com",
@@ -43,6 +44,12 @@ static NSArray* SCSiteImportSets = nil;
                                      @"stumbleupon.com"
                                      ],
                              @"apps": @[
+                                     [SCUtils appDictForBundleId: @"com.facebook.Facebook"],
+                                     [SCUtils appDictForBundleId: @"com.atebits.Tweetie2"],
+                                     [SCUtils appDictForBundleId: @"com.burbn.instagram"],
+                                     [SCUtils appDictForBundleId: @"com.youtube.ios.youtube"],
+                                     [SCUtils appDictForBundleId: @"com.9gag.ios.mobile"],
+                                     [SCUtils appDictForBundleId: @"com.tyanya.reddit"]
                                      ]
                              },
                          @{
@@ -109,14 +116,14 @@ static NSArray* SCSiteImportSets = nil;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return SCSiteImportSets.count;
+    return SCBlockImportSets.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:SCImportSetCellIdentifier];
     cell.textLabel.textColor = self.view.tintColor;
 
-    NSDictionary* siteSet = [SCSiteImportSets objectAtIndex: indexPath.row];
+    NSDictionary* siteSet = [SCBlockImportSets objectAtIndex: indexPath.row];
     cell.textLabel.text = (NSString*)[siteSet objectForKey: @"name"];
 
     return cell;
@@ -127,14 +134,19 @@ static NSArray* SCSiteImportSets = nil;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    NSArray* sites = [[SCSiteImportSets objectAtIndex: indexPath.row] objectForKey: @"hosts"];
-    
-    NSMutableArray* rules = [NSMutableArray array];
+    NSArray* sites = [[SCBlockImportSets objectAtIndex: indexPath.row] objectForKey: @"hosts"];
+    NSMutableArray* siteRules = [NSMutableArray array];
     for (unsigned long i = 0; i < sites.count; i++) {
-        [rules addObject: [SCBlockRule ruleWithHostname: sites[i]]];
+        [siteRules addObject: [SCBlockRule ruleWithHostname: sites[i]]];
     }
+    [blockListViewController addRulesToList: siteRules type: SCBlockTypeHost];
     
-    [blockListViewController addRulesToList: rules type: SCBlockTypeHost];
+    NSArray* apps = [[SCBlockImportSets objectAtIndex: indexPath.row] objectForKey: @"apps"];
+    NSMutableArray* appRules = [NSMutableArray array];
+    for (unsigned long i = 0; i < apps.count; i++) {
+        [appRules addObject: [SCBlockRule ruleWithAppDict: apps[i]]];
+    }
+    [blockListViewController addRulesToList: appRules type: SCBlockTypeApp];
     
     [self.navigationController popViewControllerAnimated: YES];
 }

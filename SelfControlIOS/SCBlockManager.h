@@ -18,8 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)startBlock:(completion)done;
 
-- (void)addBlockRules:(NSArray<SCBlockRule*> *)blockRules type:(SCBlockType)type;
-- (void)addBlockRule:(SCBlockRule*)blockRule type:(SCBlockType)type;
+- (NSInteger)addBlockRules:(NSArray<SCBlockRule*> *)blockRules type:(SCBlockType)type;
+- (BOOL)addBlockRule:(SCBlockRule*)blockRule type:(SCBlockType)type;
 - (void)removeBlockRuleAtIndex:(NSUInteger)index type:(SCBlockType)type;
 - (NSArray<SCBlockRule *>*)blockRulesOfType:(SCBlockType)type;
 - (void)setBlockRules:(NSArray<SCBlockRule *>*)blockRules type:(SCBlockType)type;

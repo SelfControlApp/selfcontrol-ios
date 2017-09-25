@@ -46,8 +46,8 @@
 
 + (NSDictionary<NSString*, NSString*>*)appDictForBundleId:(NSString*)bundleId {
     return @{
-             @"name": bundleId,
-             @"bundleId": [[SCUtils appNameDict] objectForKey: bundleId]
+             @"name": [[SCUtils appNameDict] objectForKey: bundleId],
+             @"bundleId": bundleId
              };
 }
 

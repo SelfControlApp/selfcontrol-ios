@@ -128,17 +128,29 @@ NS_ASSUME_NONNULL_BEGIN
     [[FilterUtilities defaults] setObject:rulesDictionary forKey:@"rules"];
 }
 
-- (void)addBlockRules:(NSArray<SCBlockRule*> *)blockRules type:(SCBlockType)type {
+- (NSInteger)addBlockRules:(NSArray<SCBlockRule*> *)blockRules type:(SCBlockType)type {
     NSArray<SCBlockRule*>* blockRulesOriginal = [self blockRulesOfType: type];
     NSMutableArray<SCBlockRule *> *blockRulesCopy = [blockRulesOriginal mutableCopy];
 
-    [blockRulesCopy addObjectsFromArray: blockRules];
+    // filter out duplicates in the list
+    blockRules = [blockRules filteredArrayUsingPredicate: [NSPredicate predicateWithBlock:^BOOL(SCBlockRule* rule, NSDictionary<NSString *,id> * _Nullable bindings) {
+        return ![self ruleIsAlreadyOnBlockList: rule];
+    }]];
     
-    [self setBlockRules: blockRulesCopy type: type];
+    NSArray* newRules = [blockRules arrayByAddingObjectsFromArray: blockRulesCopy];
+    
+    [self setBlockRules: newRules type: type];
+    
+    // return the number of block rules added, since it may have changed when we filtered out duplicates
+    return blockRules.count;
 }
 
-- (void)addBlockRule:(SCBlockRule*)blockRule type:(SCBlockType)type {
-    [self addBlockRules: @[blockRule] type: type];
+// returns true if the rule was added, false if it wasn't (generally because it was a duplicate)
+- (BOOL)addBlockRule:(SCBlockRule*)blockRule type:(SCBlockType)type {
+    NSInteger numRulesAdded = [self addBlockRules: @[blockRule] type: type];
+    
+    if (numRulesAdded == 0) return NO;
+    else return YES;
 }
 
 - (void)removeBlockRuleAtIndex:(NSUInteger)index type:(SCBlockType)type {
@@ -173,6 +185,36 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setHostBlockRules:(NSArray<SCBlockRule *> *)hostBlockRules {
     _hostBlockRules = hostBlockRules;
     [self updateFilterRules];
+}
+
+- (BOOL)appIsOnBlockList:(NSString*)bundleId {
+    NSArray<SCBlockRule*>* existingAppRules = [self appBlockRules];
+    
+    for (int i = 0; i < existingAppRules.count; i++) {
+        if ([existingAppRules[i].appDict[@"bundleId"] isEqualToString: bundleId]) {
+            return YES;
+        }
+    }
+ 
+    return NO;
+}
+- (BOOL)hostIsOnBlockList:(NSString*)hostname {
+    NSArray<SCBlockRule*>* existingHostRules = [self hostBlockRules];
+    
+    for (int i = 0; i < existingHostRules.count; i++) {
+        if ([existingHostRules[i].hostname isEqualToString: hostname]) {
+            return YES;
+        }
+    }
+    
+    return NO;
+}
+- (BOOL)ruleIsAlreadyOnBlockList:(SCBlockRule*)rule {
+   if ([rule.type isEqualToString: @"app"]) {
+       return [self appIsOnBlockList: rule.appDict[@"bundleId"]];
+   } else {
+       return [self hostIsOnBlockList: rule.hostname];
+   }
 }
 
 - (void)extendBlockDuration:(NSInteger)seconds {
