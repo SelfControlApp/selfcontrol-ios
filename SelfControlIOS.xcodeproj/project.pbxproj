@@ -19,6 +19,7 @@
 		CB0E6AA31EC1982A003CA02B /* SCUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = CB0E6AA01EC19759003CA02B /* SCUtils.m */; };
 		CB47E1491F7632C8009A410A /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = CB47E1481F7632C8009A410A /* Localizable.stringsdict */; };
 		CB47E14B1F76375C009A410A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CB47E14A1F76375C009A410A /* Localizable.strings */; };
+		CB681E171F7B7A00000A8821 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB681E161F7B7A00000A8821 /* NetworkExtension.framework */; };
 		CB84E2EA1E109803005A0A6B /* SCFilterDataProvider.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = CB84E2E11E109803005A0A6B /* SCFilterDataProvider.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		CB84E2FB1E1098E6005A0A6B /* SCFilterControlProvider.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = CB84E2F21E1098E6005A0A6B /* SCFilterControlProvider.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		CB84E3081E109A59005A0A6B /* DataExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB84E3051E109A59005A0A6B /* DataExtension.swift */; };
@@ -122,6 +123,7 @@
 		CB47E14A1F76375C009A410A /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		CB5D28AC1E9B572600EF7753 /* SCFilterDataProvider.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SCFilterDataProvider.entitlements; sourceTree = "<group>"; };
 		CB5D28AD1E9B572D00EF7753 /* SCFilterControlProvider.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SCFilterControlProvider.entitlements; sourceTree = "<group>"; };
+		CB681E161F7B7A00000A8821 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
 		CB84E2E11E109803005A0A6B /* SCFilterDataProvider.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SCFilterDataProvider.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB84E2F21E1098E6005A0A6B /* SCFilterControlProvider.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SCFilterControlProvider.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB84E3051E109A59005A0A6B /* DataExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataExtension.swift; sourceTree = "<group>"; };
@@ -192,6 +194,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				48E57CFE0FDBE7C256F26E4B /* Pods_SelfControlIOS.framework in Frameworks */,
+				CB681E171F7B7A00000A8821 /* NetworkExtension.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -234,6 +237,7 @@
 		92C55FC59B44EB525FCC327D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CB681E161F7B7A00000A8821 /* NetworkExtension.framework */,
 				4FEDDAF9959688D12A1484F5 /* Pods_SCFilterControlProvider.framework */,
 				9D7D59D8659045AA1C1D02B1 /* Pods_SCFilterDataProvider.framework */,
 				A039EC64E81556A65EF5774E /* Pods_SelfControlIOS.framework */,
@@ -416,6 +420,7 @@
 				CB84E2DC1E1097C0005A0A6B /* Embed App Extensions */,
 				B6893F15863842B6620D2323 /* [CP] Embed Pods Frameworks */,
 				D7B6F01B87F9A89AC7FB303A /* [CP] Copy Pods Resources */,
+				CB1E05661F78BBA90029F429 /* Run Script */,
 			);
 			buildRules = (
 			);
@@ -509,6 +514,9 @@
 						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+							com.apple.VPNLite = {
 								enabled = 1;
 							};
 						};
@@ -633,7 +641,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		1DF30DC14E2F6AA58A91B7F6 /* [CP] Check Pods Manifest.lock */ = {
@@ -648,7 +656,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		294C60029D9F141965FC865B /* [CP] Copy Pods Resources */ = {
@@ -693,7 +701,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		7A99CBDF6DBA9394F606A29B /* [CP] Embed Pods Frameworks */ = {
@@ -723,7 +731,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		9888E9C1FC69A04C5997C1B6 /* [CP] Copy Pods Resources */ = {
@@ -753,7 +761,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		B6893F15863842B6620D2323 /* [CP] Embed Pods Frameworks */ = {
@@ -770,6 +778,20 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SelfControlIOS/Pods-SelfControlIOS-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		CB1E05661F78BBA90029F429 /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" ee0dfb7e3912bba22055d802e2fbe745aff38c67 dcd74849ab7b3fbf3da6e25e529f1745e39f14fab368c2540488b3ba388acb53";
 		};
 		D7B6F01B87F9A89AC7FB303A /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -932,13 +954,14 @@
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = SCFilterDataProvider/SCFilterDataProvider.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				DEVELOPMENT_TEAM = L6W5L88KN7;
 				INFOPLIST_FILE = SCFilterDataProvider/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.selfcontrolapp.SelfControlIOS.SCFilterDataProvider;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "0d7ff597-ff57-4393-a5f2-bf1805b593c0";
-				PROVISIONING_PROFILE_SPECIFIER = "SC iOS Dev (Filter Data Provider)";
+				PROVISIONING_PROFILE = "6ab27de8-8a28-4246-994b-c75c21ceed8c";
+				PROVISIONING_PROFILE_SPECIFIER = "SC iOS Ad-Hoc (Filter Data)";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "SelfControlIOS/SelfControlIOS-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
@@ -974,13 +997,14 @@
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = SCFilterControlProvider/SCFilterControlProvider.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				DEVELOPMENT_TEAM = L6W5L88KN7;
 				INFOPLIST_FILE = SCFilterControlProvider/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.selfcontrolapp.SelfControlIOS.SCFilterControlProvider;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "8871c112-fd05-4c21-9661-0f6c1d33019b";
-				PROVISIONING_PROFILE_SPECIFIER = "SC iOS Dev (Filter Control Provider)";
+				PROVISIONING_PROFILE = "9a21a6e4-3c68-473b-99ae-c2658ba4c9f6";
+				PROVISIONING_PROFILE_SPECIFIER = "SC iOS Ad-Hoc (Filter Control)";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "SelfControlIOS/SelfControlIOS-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
@@ -1119,6 +1143,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = SelfControlIOS/SelfControlIOS.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				DEVELOPMENT_TEAM = L6W5L88KN7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1128,8 +1153,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.selfcontrolapp.SelfControlIOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "66df3e32-b973-4f5b-9561-c3cb4d0b3d7a";
-				PROVISIONING_PROFILE_SPECIFIER = "SC iOS Dev";
+				PROVISIONING_PROFILE = "a7591a5e-dbf4-45c7-83b9-e77d9e919653";
+				PROVISIONING_PROFILE_SPECIFIER = "SC iOS Ad-Hoc (Main)";
 				SWIFT_OBJC_BRIDGING_HEADER = "SelfControlIOS/SelfControlIOS-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};

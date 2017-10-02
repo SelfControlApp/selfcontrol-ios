@@ -7,6 +7,8 @@
 //
 
 #import "SCAppDelegate.h"
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
 
 @implementation SCAppDelegate
 
@@ -20,8 +22,9 @@
     [window makeKeyAndVisible];
     self.window = window;
     
-//    let bm = BlockManager()
-//    bm.startBlock();
+    // Initialize Fabric
+    [Fabric with:@[[Crashlytics class]]];
+    
     return YES;
 }
 

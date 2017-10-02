@@ -76,6 +76,46 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)startBlock:(completion)done {
+    NEVPNManager* vpnManager = [NEVPNManager sharedManager];
+    [vpnManager loadFromPreferencesWithCompletionHandler:^(NSError * _Nullable error) {
+        if (error) {
+            NSLog(@"load config error %@", error);
+        } else {
+            NSLog(@"loaded successfully");
+        }
+        
+        NEVPNProtocolIKEv2* protocol = [NEVPNProtocolIKEv2 new];
+        protocol.serverAddress = @"255.255.255.255";
+        protocol.authenticationMethod = NEVPNIKEAuthenticationMethodNone;
+        protocol.useExtendedAuthentication = NO;
+        protocol.disconnectOnSleep = NO;
+
+        NEProxySettings* proxySettings = [NEProxySettings new];
+        proxySettings.excludeSimpleHostnames = YES;
+        proxySettings.matchDomains = @[
+                                       @"hw.com",
+                                       @"facebook.com",
+                                       @"twitter.com"
+                                       ];
+//        protocol.proxySettings = proxySettings;
+
+        vpnManager.localizedDescription = @"SelfControl VPN";
+        vpnManager.protocolConfiguration = protocol;
+        vpnManager.enabled = YES;
+        
+        [vpnManager saveToPreferencesWithCompletionHandler:^(NSError * _Nullable error) {
+            if (error) {
+                NSLog(@"save error %@", error);
+            } else {
+                NSLog(@"saved successfully");
+            }
+            done(error);
+        }];
+    }];
+    
+    
+    
+    return;
     [self loadFromPreferences:^{
         if (![[NEFilterManager sharedManager] providerConfiguration]) {
             NEFilterProviderConfiguration *newConfiguration = [NEFilterProviderConfiguration new];

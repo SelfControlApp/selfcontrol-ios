@@ -1,17 +1,24 @@
 PODS:
+  - Crashlytics (3.8.6):
+    - Fabric (~> 1.6.3)
+  - Fabric (1.6.11)
   - FormatterKit/Resources (1.8.1)
   - FormatterKit/TimeIntervalFormatter (1.8.1):
     - FormatterKit/Resources
   - Masonry (1.0.2)
 
 DEPENDENCIES:
+  - Crashlytics
+  - Fabric
   - FormatterKit/TimeIntervalFormatter (~> 1.7)
   - Masonry (~> 1.0.2)
 
 SPEC CHECKSUMS:
+  Crashlytics: 95d05f4e4c19a771250c4bd9ce344d996de32bbf
+  Fabric: 5911403591946b8228ab1c51d98f1d7137e863c6
   FormatterKit: 11ad17b983200629246a5a466f6f1bfa2df823cb
   Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
 
-PODFILE CHECKSUM: 0ae327b172afc30412e7770516159c887e1b731c
+PODFILE CHECKSUM: b3eb45ee70a0715b9a477861f41f2780c12bc6fd
 
-COCOAPODS: 1.2.0
+COCOAPODS: 1.2.1
